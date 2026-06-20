@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Weekly auto-discovery: find NEW AI agent platforms and add them to the Agent Arena
-# comparison site (~/apps/agents/site/index.html), re-rank, verify, commit & push.
+# Weekly auto-discovery: find NEW AI agent platforms and add them to the Awesome Agent Platforms
+# comparison site (~/apps/agents/site/index.html), verify, commit & push (list is alphabetical).
 # Runs a headless Claude Code agent. Invoked by cron (see `crontab -l`).
 set -uo pipefail
 export HOME=/home/jrdevelopr
@@ -19,7 +19,7 @@ git pull --quiet origin main 2>/dev/null || true
 read -r -d '' PROMPT <<'EOF'
 You maintain a PUBLIC comparison site of AI coding-agent platforms. The data is a JavaScript
 array named PLATFORMS inside the single file ~/apps/agents/site/index.html. Your task this run:
-find agent platforms NOT already in that array and add them, accurately, then re-rank and ship.
+find agent platforms NOT already in that array and add them, accurately, then verify and ship.
 
 DISCOVERY — fetch these curated lists (use the Bash tool with curl) and scan for platform names:
   curl -fsSL https://raw.githubusercontent.com/bradAGI/awesome-cli-coding-agents/main/README.md
@@ -40,10 +40,12 @@ RULES:
 3) BE ACCURATE AND CONSERVATIVE. Mark a capability 'yes' only when the project's own docs/repo
    clearly support it; otherwise 'partial' or 'no'. Mark paid products cost.t:'paid' with a price
    if known. Prefer truth over completeness — when unsure, use 'partial' or '–'.
-4) RE-RANK the whole array by this owner's preference, best first: integrated one-click HUMAN shell
-   + GitHub Issue sync + PR/push + many agents/models + multiple-login isolation + mobile access;
-   self-hosted & free preferred, paid allowed but ranked lower if it fails the must-haves; tools
-   with NO human shell rank low. Keep `lab:true` flags as-is.
+4) DO NOT rank by preference. The list is ordered ALPHABETICALLY by name (A→Z) — the site and
+   README both sort at render time, so just insert each new platform as a well-formed object; order
+   in the source array does not matter. For each new platform also fill `stars` (current GitHub
+   stargazers count, integer, or null if no public repo) and a neutral sentiment-based `verdict`
+   (what real users say — praise + main gripe; be honest if it's too new for feedback, no invented
+   quotes). Keep existing flags as-is.
 5) VERIFY before shipping: run a Node DOM-stub render of the script (same technique used previously
    in this repo) and confirm the table row count INCREASED and there are ZERO "undefined" leaks and
    no JS errors. If verification fails, revert your edit and STOP without committing.

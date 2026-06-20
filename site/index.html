@@ -325,6 +325,8 @@ const PLATFORMS=[
 {"name":"Devin","url":"https://devin.ai","link":"devin.ai","cost":{"t":"paid","label":"Paid","price":"from ~$20/mo (teams $$)"},"ghIssues":{"s":"yes","note":"Works from issues, opens PRs"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"partial","note":"Its own cloud workspace shell, not your servers"},"agents":"Devin’s own proprietary agent","agentsCnt":"1","agentsBeyond":"no","multi":{"s":"no","note":""},"mobile":{"s":"partial","note":"Web + Slack (drive from phone)"},"deploy":"Cloud SaaS — not self-hosted","verdict":"Autonomous cloud engineer. Polished, but single proprietary agent and not self-hosted.","selfHosted":{"s":"no","note":"cloud SaaS — runs on their servers"},"desktop":{"s":"no","note":""}},
 {"name":"Cursor","url":"https://cursor.com","link":"cursor.com","cost":{"t":"paid","label":"Paid","price":"Pro $20/mo + usage"},"ghIssues":{"s":"partial","note":"Background agents from issues/Slack"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"partial","note":"In-IDE terminal + cloud agents"},"agents":"Cursor models + some BYOK","agentsCnt":"few","agentsBeyond":"partial","multi":{"s":"no","note":""},"mobile":{"s":"partial","note":"Mobile web for background agents"},"deploy":"Desktop IDE + cloud — not self-hosted/fleet","verdict":"Polished IDE with cloud background agents. Not self-hosted; not a server-shell fleet.","selfHosted":{"s":"no","note":"desktop IDE + their cloud"},"desktop":{"s":"yes","note":""}}
 ];
+// Neutral order for everyone: alphabetical by name (A→Z), not owner preference.
+PLATFORMS.sort((a,b)=>a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
 const MK={yes:['mk-y','✓'],partial:['mk-p','~'],no:['mk-n','–']};
 function mark(cell){
@@ -342,7 +344,7 @@ function render(list){
     const ab=p.agentsBeyond==='no'?'<span class="mark mk-n" style="width:17px;height:17px;display:inline-flex">–</span> '
       :p.agentsBeyond==='partial'?'<span class="mark mk-p" style="width:17px;height:17px;display:inline-flex">~</span> ':'';
     return `<tr>
-      <td class="c-rank"><span class="rank ${realRank<=3?'top':''}">${realRank}</span></td>
+      <td class="c-rank"><span class="rank">${realRank}</span></td>
       <td class="c-name"><div class="pname">${p.name}</div>
         <a class="plink" href="${p.url}" target="_blank" rel="noopener">${p.link}
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a></td>
