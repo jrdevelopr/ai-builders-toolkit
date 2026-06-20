@@ -30,9 +30,13 @@ If web-search tools are available, you may also look for "new self-hosted AI cod
 RULES:
 1) Only ADD platforms genuinely missing from the current PLATFORMS array (compare by name,
    case-insensitive). NEVER delete or rewrite existing entries' facts — you may only reorder.
-2) Match the EXACT object shape of existing entries. Every field present, same helper `c('yes'|'partial'|'no','note')`
-   for ghIssues, ghProjects, prs, shell, multi, mobile. Keep the `agents` string concise
-   (e.g. "Claude, Codex + many more"); set agentsCnt + agentsBeyond ('yes'/'partial'/'no').
+2) Match the EXACT object shape of existing entries (each capability cell is an object
+   {"s":"yes|partial|no","note":"..."}). EVERY field present: name,url,link,cost{t,label,price},
+   selfHosted, ghIssues, ghProjects, prs, shell, multi, mobile, desktop (all as {s,note}),
+   agents (concise string e.g. "Claude, Codex + many more"), agentsCnt, agentsBeyond
+   ('yes'/'partial'/'no'), deploy, verdict. **selfHosted** = can it run 100% on the user's own
+   machines (not the vendor's servers)? **desktop** = is there a native desktop app? Do NOT add a
+   `lab` field (privacy).
 3) BE ACCURATE AND CONSERVATIVE. Mark a capability 'yes' only when the project's own docs/repo
    clearly support it; otherwise 'partial' or 'no'. Mark paid products cost.t:'paid' with a price
    if known. Prefer truth over completeness — when unsure, use 'partial' or '–'.

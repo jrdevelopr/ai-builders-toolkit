@@ -43,11 +43,12 @@ mobile-first; 🟡 = mobile browser / chat; ➖ = desktop / SSH only.
 
 `;
 
-const cols = ['#','Platform','Cost','GitHub Issues','GH Projects','PRs / push','One-click shell',
+const m = cell => MARK[(cell||{s:'no'}).s] || MARK.no;
+const cols = ['#','Platform','Cost','Self-hosted','GitHub Issues','GH Projects','PRs / push','One-click shell',
   'Multiple logins','Mobile','Agents / models','Bottom line'];
 let rows = `| ${cols.join(' | ')} |\n|${cols.map(()=>'---').join('|')}|\n`;
 P.forEach((p, i) => {
-  rows += `| ${i+1} | **[${esc(p.name)}](${p.url})** | ${cost(p.cost)} | ${MARK[p.ghIssues.s]} | ${MARK[p.ghProjects.s]} | ${MARK[p.prs.s]} | ${MARK[p.shell.s]} | ${MARK[p.multi.s]} | ${MARK[p.mobile.s]}<br><sub>${esc(p.mobile.note)}</sub> | ${esc(p.agents)} | ${esc(p.verdict)} |\n`;
+  rows += `| ${i+1} | **[${esc(p.name)}](${p.url})** | ${cost(p.cost)} | ${m(p.selfHosted)} | ${m(p.ghIssues)} | ${m(p.ghProjects)} | ${m(p.prs)} | ${m(p.shell)} | ${m(p.multi)} | ${m(p.mobile)}<br><sub>${esc(p.mobile.note)}</sub> | ${esc(p.agents)} | ${esc(p.verdict)} |\n`;
 });
 
 const footer = `

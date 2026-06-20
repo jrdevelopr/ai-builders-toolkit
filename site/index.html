@@ -59,11 +59,15 @@
     background:var(--panel);border:1px solid var(--accentB);color:var(--txt);padding:11px 18px;border-radius:12px;
     font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.5)}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-  /* stats */
+  /* clickable oblong filter tiles */
   .stats{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 2px}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 17px;min-width:120px}
-  .stat b{color:var(--txt);font-size:21px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
-  .stat span{color:var(--mut);font-size:12.5px;display:block;margin-top:2px}
+  .stat{display:flex;align-items:center;gap:11px;cursor:pointer;background:var(--panel);
+    border:1px solid var(--line);border-radius:999px;padding:9px 18px 9px 15px;transition:.15s;user-select:none}
+  .stat:hover{border-color:#3b5680;transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.10)}
+  .stat.on{border-color:var(--accentB);background:linear-gradient(100deg,rgba(110,231,183,.13),rgba(91,157,255,.13))}
+  .stat .fic{color:var(--accentB);display:flex;flex:0 0 auto}
+  .stat b{color:var(--txt);font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+  .stat span{color:var(--mut);font-size:12.5px;font-weight:600}
 
   @media(max-width:640px){.iconbtn .lbl,.brand .tag{display:none}.iconbtn{padding:9px}}
 
@@ -79,7 +83,9 @@
   .sub{color:var(--mut);font-size:clamp(15px,2vw,18px);max-width:820px}
   .musts{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px}
   .must{display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);
-    border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--txt)}
+    border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--txt);cursor:pointer;user-select:none;transition:.15s}
+  .must:hover{border-color:#3b5680;transform:translateY(-1px)}
+  .must.on{border-color:var(--accentB);background:linear-gradient(100deg,rgba(110,231,183,.12),rgba(91,157,255,.12))}
   .must svg{flex:0 0 auto}
   .must b{color:var(--txt)}
 
@@ -107,13 +113,16 @@
 
   /* table */
   .tablecard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  .scroll{overflow-x:auto}
-  table{border-collapse:separate;border-spacing:0;width:100%;min-width:1320px}
-  thead th{position:sticky;top:60px;z-index:3;background:var(--thead);color:var(--mut);font-size:11.5px;
-    letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:13px 10px;font-weight:700;
+  .scroll{overflow:auto;max-height:calc(100vh - 92px)}
+  table{border-collapse:separate;border-spacing:0;width:100%;min-width:1340px}
+  thead th{position:sticky;top:0;z-index:3;background:var(--thead);color:var(--mut);font-size:10.5px;
+    letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:9px 7px;font-weight:700;
     border-bottom:1px solid var(--line);white-space:nowrap}
+  th .hh{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--mut)}
+  th .hh svg{opacity:.9}
+  th .hh span{font-size:9px;letter-spacing:.03em;line-height:1}
   thead th.l{text-align:left}
-  tbody td{padding:14px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:center}
+  tbody td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:center}
   tbody tr:last-child td{border-bottom:none}
   tbody tr:hover td{background:var(--panel2)}
   /* sticky first columns */
@@ -125,7 +134,7 @@
 
   .rank{font-weight:800;color:var(--mut2);font-variant-numeric:tabular-nums}
   .rank.top{color:var(--accentA)}
-  .pname{font-weight:700;font-size:15px;color:var(--txt);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .pname{font-weight:700;font-size:14px;color:var(--txt);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .plink{font-size:12px;color:var(--mut);display:inline-flex;align-items:center;gap:4px;margin-top:3px}
   .badge{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
     padding:3px 7px;border-radius:6px;white-space:nowrap}
@@ -138,12 +147,13 @@
   .ct.paid{background:rgba(251,113,133,.14);color:var(--paid)}
   .cprice{font-size:11px;color:var(--mut2)}
 
-  .cell{display:inline-flex;flex-direction:column;align-items:center;gap:4px}
-  .cnote{font-size:11px;color:var(--mut2);max-width:132px;line-height:1.35}
-  .agents{text-align:left;min-width:150px;color:var(--txt);font-size:13px}
-  .agents .cnt{font-size:11px;color:var(--accentB);font-weight:700}
-  .deploy{text-align:left;min-width:150px;color:var(--mut);font-size:12.5px;line-height:1.4}
-  .verdict{text-align:left;min-width:220px;color:var(--txt);font-size:12.7px;line-height:1.45}
+  .cell{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
+  .cnote{font-size:10px;color:var(--mut2);max-width:118px;line-height:1.3}
+  .agents{text-align:left;min-width:140px;color:var(--txt);font-size:12px}
+  .agents .cnt{font-size:10.5px;color:var(--accentB);font-weight:700}
+  .deploy{text-align:left;min-width:140px;color:var(--mut);font-size:11.5px;line-height:1.38}
+  .verdict{text-align:left;min-width:210px;color:var(--txt);font-size:11.7px;line-height:1.42}
+  .mark{width:21px;height:21px}
 
   footer{color:var(--mut);font-size:13px;padding:34px 0 60px;line-height:1.7}
   footer .src{color:var(--mut2);font-size:12px}
@@ -197,13 +207,7 @@
   </header>
 
   <div class="bar">
-    <div class="filters" id="filters">
-      <button class="fbtn on" data-f="all">All</button>
-      <button class="fbtn" data-f="free">Free / Open-source</button>
-      <button class="fbtn" data-f="paid">Paid</button>
-      <button class="fbtn" data-f="mobile">Has mobile</button>
-      <button class="fbtn" data-f="lab">In my lab</button>
-    </div>
+    <div style="color:var(--mut);font-size:13px">↑ Click any tile or capability chip to filter</div>
     <div class="search"><input id="q" type="search" placeholder="Search platforms…" /></div>
   </div>
 
@@ -223,14 +227,15 @@
           <tr>
             <th class="c-rank">#</th>
             <th class="c-name l">Platform</th>
-            <th>Cost</th>
-            <th>GitHub<br>Issues sync</th>
-            <th>GitHub<br>Projects</th>
-            <th>PRs /<br>push</th>
-            <th>One-click<br>shell</th>
+            <th title="Cost / license"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>Cost</span></span></th>
+            <th title="Self-hosted — runs entirely on your own machines, not their servers"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span>Self-host</span></span></th>
+            <th title="GitHub Issues — two-way sync"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.8 1.2.8 1.2.6-1.6 2.6-1.6 2.9-1.2.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg><span>Issues</span></span></th>
+            <th title="GitHub Projects board sync"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="4.5" height="16" rx="1"/><rect x="9.75" y="4" width="4.5" height="11" rx="1"/><rect x="16.5" y="4" width="4.5" height="7" rx="1"/></svg><span>Projects</span></span></th>
+            <th title="Pull requests / push to GitHub"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6"/><circle cx="18" cy="6" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg><span>PRs</span></span></th>
+            <th title="One-click human shell — integrated interactive terminal"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><span>Shell</span></span></th>
             <th class="l">Agents / models</th>
-            <th>Multiple<br>logins</th>
-            <th>Mobile<br>app / web</th>
+            <th title="Multiple logins — isolate separate subscriptions/accounts per project"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Logins</span></span></th>
+            <th title="Mobile — native app or mobile-web access"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 19h2"/></svg><span>Mobile</span></span></th>
             <th class="l">Deploy / fleet</th>
             <th class="l">Bottom line</th>
           </tr>
@@ -241,7 +246,7 @@
   </div>
 
   <footer>
-    <p><b style="color:var(--txt)">How this is ranked.</b> Order reflects one workflow above all: a single tool where you open a real shell, intake a GitHub issue, run the agent of your choice, and push a PR — without tab-hopping. Tools with no human shell drop, however strong their orchestration. “Multiple logins” = can you isolate separate Claude/agent subscriptions per project (e.g. a client's plan vs. your own). <b style="color:var(--txt)">Mobile</b> column: <span class="mark mk-y" style="width:18px;height:18px">✓</span> dedicated app or mobile-first experience (note says iOS/Android) · <span class="mark mk-p" style="width:18px;height:18px">~</span> usable from a mobile browser or chat app, no native app · <span class="mark mk-n" style="width:18px;height:18px">–</span> desktop / SSH only.</p>
+    <p><b style="color:var(--txt)">How this is ranked.</b> Order reflects one workflow above all: a single tool where you open a real shell, intake a GitHub issue, run the agent of your choice, and push a PR — without tab-hopping. Tools with no human shell drop, however strong their orchestration. “Multiple logins” = can you isolate separate Claude/agent subscriptions per project (e.g. a client's plan vs. your own). <b style="color:var(--txt)">Self-hosted</b> ✓ = runs entirely on your own machines (not the vendor's servers) — free-but-cloud-only scores ➖/~. <b style="color:var(--txt)">Mobile</b> column: <span class="mark mk-y" style="width:18px;height:18px">✓</span> dedicated app or mobile-first experience (note says iOS/Android) · <span class="mark mk-p" style="width:18px;height:18px">~</span> usable from a mobile browser or chat app, no native app · <span class="mark mk-n" style="width:18px;height:18px">–</span> desktop / SSH only.</p>
     <div class="hr"></div>
     <p class="src">Ratings from official docs &amp; repos checked June 20, 2026; “–”/“~” used instead of guessing. GitHub Projects = GitHub's boards, not a product's internal Kanban. Prices are list-price estimates and change often — verify before buying. This is a personal, independent comparison, free to share — <a href="https://github.com/jrdevelopr/agents" target="_blank" rel="noopener">source &amp; data on GitHub</a>. <span id="count"></span></p>
   </footer>
@@ -251,280 +256,39 @@
 <script>
 function c(s,note){return {s,note:note||''}}
 const PLATFORMS=[
- {name:'Emdash',url:'https://emdash.sh',link:'emdash.sh',lab:false,
-  cost:{t:'free',label:'Free',price:'Apache-2.0'},
-  ghIssues:c('yes','Create tasks from issues; PR, checks, merge'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('yes','Integrated terminals; remote = SSH PTY'),
-  agents:'Claude, Codex, Gemini, OpenCode, Kilo + many more',agentsCnt:'31 CLIs',agentsBeyond:'yes',
-  multi:c('yes','In-app browser keeps separate login profiles; per-task isolation'),
-  mobile:c('no','Desktop app only (Mac/Win/Linux)'),
-  deploy:'Desktop app · local + remote SSH + provisioned workspaces · multi-host',
-  verdict:'Best overall fit — agent, diff, editor, terminal & in-app browser in one window. Gaps: desktop (not browser) control plane; no Projects sync.'},
-
- {name:'Paseo',url:'https://github.com/getpaseo/paseo',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('partial','Attach issues/PRs as agent context'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('yes','Built-in terminals; remote daemon control'),
-  agents:'Dozens of coding-agent CLIs',agentsCnt:'dozens',agentsBeyond:'yes',
-  multi:c('partial','Per-host config'),
-  mobile:c('yes','Mobile client (iOS/Android) + desktop/web/CLI'),
-  deploy:'Local daemon + desktop/mobile/web/CLI · remote daemons',
-  verdict:'Very close on shell, models and hosts. GitHub issue/project sync is the weak spot.'},
-
- {name:'CloudCLI',url:'https://github.com/siteboon/claudecodeui',link:'GitHub',lab:true,
-  cost:{t:'free',label:'Free',price:'GPL-3'},
-  ghIssues:c('partial','GitHub Issues Board plugin; task-sync'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('yes','Full multi-tab xterm.js terminal'),
-  agents:'Claude, Codex, Gemini, Cursor, OpenCode',agentsCnt:'5+',agentsBeyond:'yes',
-  multi:c('partial','Per-project config'),
-  mobile:c('yes','Mobile-optimized web UI (use on the go)'),
-  deploy:'Lightweight web UI · one per host · no central fleet',
-  verdict:'Best lightweight browser demo; excellent shell. Fleet management is the gap.'},
-
- {name:'RCFlow',url:'https://www.rcflow.app',link:'rcflow.app',lab:true,
-  cost:{t:'free',label:'Free',price:'AGPL'},
-  ghIssues:c('no','Own tasks/projects'),ghProjects:c('no'),prs:c('no'),
-  shell:c('yes','Integrated full PTY xterm terminals'),
-  agents:'Claude, Codex, OpenCode (Anthropic/Bedrock/OpenAI-compat)',agentsCnt:'3+',agentsBeyond:'yes',
-  multi:c('partial','Per-worker config'),
-  mobile:c('yes','Mobile client (+ desktop)'),
-  deploy:'Self-hosted worker + desktop/mobile client · one client → many workers',
-  verdict:'Strong shell + multi-host candidate. Main gap is GitHub sync; project is very new.'},
-
- {name:'Coder',url:'https://coder.com',link:'coder.com',lab:true,
-  cost:{t:'hybrid',label:'OSS + Cloud',price:'free core · Premium $$'},
-  ghIssues:c('partial','Repos + agent tasks; no issue-board sync'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('yes','Browser terminal + normal SSH'),
-  agents:'Terminal/MCP agents, built-in modules, custom agents',agentsCnt:'broad',agentsBeyond:'yes',
-  multi:c('yes','Per-workspace env/secrets isolate credentials'),
-  mobile:c('partial','Web (responsive); no native app'),
-  deploy:'Self-hosted control plane · provisioned workspaces across infra',
-  verdict:'Best shell + infrastructure platform. Heavier setup, less issue-centric.'},
-
- {name:'Claude Plane',url:'https://github.com/kodrunhq/claude-plane',link:'GitHub',lab:true,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('partial','GitHub bridge triggers jobs / relays notifs'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('yes','Full xterm.js browser terminal, multi-view, persistent'),
-  agents:'Claude CLI only',agentsCnt:'Claude-only',agentsBeyond:'no',
-  multi:c('partial','Per-worker'),
-  mobile:c('partial','Mobile browser terminal'),
-  deploy:'Docker control plane + agent per worker · distributed, NAT-friendly',
-  verdict:'Best true browser shell/fleet newcomer. Major drawback: Claude-only & very young.'},
-
- {name:'Agentrove',url:'https://github.com/Mng-dev-ai/agentrove',link:'GitHub',lab:true,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('no','Strong repo + PR tooling, no issue sync'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('yes','Terminal + editor + files + diffs + Git in one'),
-  agents:'Claude, Codex, Copilot, Cursor, OpenCode',agentsCnt:'5+',agentsBeyond:'yes',
-  multi:c('yes','Per-sandbox isolation (Docker/host)'),
-  mobile:c('partial','Web (responsive); desktop app too'),
-  deploy:'Docker web app · primarily single-host workspaces/sandboxes',
-  verdict:'Promising all-in-one workspace. Young — maintainers warn of breaking changes.'},
-
- {name:'Jean',url:'https://github.com/coollabsio/jean',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'Apache-2.0'},
-  ghIssues:c('partial','GitHub dashboard — Issues/PRs tabs; checkout PRs as worktrees'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('yes','Multi-dock terminal (floating / left / right / bottom)'),
-  agents:'Claude, Codex, Cursor, OpenCode + MCP',agentsCnt:'4+',agentsBeyond:'yes',
-  multi:c('no','Per-project config; no documented login isolation'),
-  mobile:c('partial','Headless web access over HTTP (mobile browser)'),
-  deploy:'Tauri desktop app + headless web mode · single-host',
-  verdict:'Strong single-box fit — in-UI terminal, Claude/Codex/Cursor/OpenCode, GitHub Issues/PR dashboard with real PRs. Gaps: desktop-first, no Projects, no multi-login.'},
-
- {name:'AgentOS',url:'https://github.com/saadnvd1/agent-os',link:'GitHub',lab:true,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('no','Clone repos, manage Git/PRs from UI'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('yes','Mobile-first, multi-pane terminals'),
-  agents:'Claude, Codex, OpenCode, Kilo, Gemini, Aider, Cursor, Amp, Pi + more',agentsCnt:'9+',agentsBeyond:'yes',
-  multi:c('partial','Per-session'),
-  mobile:c('yes','Mobile-first web (PWA) — designed for phones'),
-  deploy:'Self-hosted web + optional desktop wrapper · one server per machine',
-  verdict:'Good mobile shell. Weak point is external issue/project sync.'},
-
- {name:'AgentsMesh',url:'https://agentsmesh.ai',link:'agentsmesh.ai',lab:false,
-  cost:{t:'hybrid',label:'Source + Cloud',price:'BSL-1.1 · self-host · BYOK cloud'},
-  ghIssues:c('no','Own Kanban tickets with MR/PR tracking'),ghProjects:c('no'),prs:c('partial','Worktree isolation + PR tracking; no native PR author'),
-  shell:c('yes','PTY terminal per agent pod; multi-pane web console'),
-  agents:'Claude, Codex, Gemini, Aider, OpenCode + custom (MCP)',agentsCnt:'5+',agentsBeyond:'yes',
-  multi:c('partial','BYOK per deployment'),
-  mobile:c('yes','Native iOS (SwiftUI) client + web / tablet'),
-  deploy:'Docker / K8s web + Electron + iOS · self-hosted runners across machines',
-  verdict:'Most complete platform here — web/desktop/iOS clients, real PTY pods, many agents, true multi-machine runners. Gaps: own ticket board (no GitHub Issues), BSL license for prod.'},
-
- {name:'Conductor',url:'https://conductor.build',link:'conductor.build',lab:false,
-  cost:{t:'free',label:'Free',price:'proprietary · BYO Claude/Codex'},
-  ghIssues:c('yes','Create a workspace from a GitHub issue → PR'),ghProjects:c('no'),prs:c('yes','⌘⇧P opens a PR; drafts desc, fixes checks / review'),
-  shell:c('yes','Per-workspace terminal + saved Run commands'),
-  agents:'Claude Code, Codex, Cursor (+ Bedrock / Vertex / OpenRouter)',agentsCnt:'3',agentsBeyond:'partial',
-  multi:c('no','Uses your single local Claude/Codex login'),
-  mobile:c('no','macOS desktop app only'),
-  deploy:'macOS desktop app · isolated git-worktree workspaces',
-  verdict:'Polished Mac-native issue→terminal→PR flow with review/CI fixes. But closed-source, macOS-only (no Linux self-host), no mobile, no multi-login.'},
-
- {name:'cmux',url:'https://github.com/manaflow-ai/cmux',link:'GitHub',lab:false,
-  cost:{t:'hybrid',label:'OSS + Cloud',price:'GPL-3 · paid Founder tier'},
-  ghIssues:c('no'),ghProjects:c('no'),prs:c('partial','Surfaces linked PR status; no native PR author'),
-  shell:c('yes','Native terminal app (libghostty) — split panes / tabs'),
-  agents:'Claude, Codex, Gemini, Grok, Cursor, Copilot, Amp, OpenCode, Pi + more',agentsCnt:'13',agentsBeyond:'yes',
-  multi:c('no'),
-  mobile:c('partial','Early-access iOS app; macOS desktop'),
-  deploy:'Native macOS desktop app (brew cask) · single-host',
-  verdict:'Slick native terminal with the widest agent roster (13). But single-Mac desktop — no GitHub Issues/Projects, no fleet, no multi-login.'},
-
- {name:'OpenCode',url:'https://opencode.ai',link:'opencode.ai',lab:true,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('yes','/opencode in issues/PRs: triage, branch, fix, PR'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('partial','Terminal-native; not a central remote-shell dashboard'),
-  agents:'Any of 75+ providers incl. free & local models',agentsCnt:'75+ providers',agentsBeyond:'yes',
-  multi:c('partial','Per-project auth file'),
-  mobile:c('partial','Mobile browser (web UI) / terminal'),
-  deploy:'Install per machine · no native central fleet plane',
-  verdict:'Excellent runtime + GitHub issue worker. It is an agent, not a fleet manager by itself.'},
-
- {name:'Kilo.ai',url:'https://kilo.ai',link:'kilo.ai',lab:true,
-  cost:{t:'hybrid',label:'OSS + Cloud',price:'BYOK free · cloud paid'},
-  ghIssues:c('yes','@kilocode-bot works in issues/PRs, opens a fixing PR'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('partial','CLI + browser Console; not a remote-server shell'),
-  agents:'Hundreds of models, BYOK + local',agentsCnt:'100s of models',agentsBeyond:'yes',
-  multi:c('yes','BYOK per workspace'),
-  mobile:c('partial','Cloud web console in mobile browser'),
-  deploy:'CLI / IDE components + hosted cloud control',
-  verdict:'Best model freedom + GitHub issue workflow. Does not solve the server-shell need.'},
-
- {name:'mux',url:'https://github.com/coder/mux',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'AGPL-3'},
-  ghIssues:c('no'),ghProjects:c('no'),prs:c('partial','Agent pushes branches / opens PR via gh'),
-  shell:c('partial','Agent workspaces; no documented human terminal'),
-  agents:'Claude, GPT / Codex, Grok, Ollama, OpenRouter models',agentsCnt:'multi-model',agentsBeyond:'yes',
-  multi:c('no','Single ~/.mux config'),
-  mobile:c('partial','Server mode = responsive mobile web'),
-  deploy:'Electron desktop + server mode · local / worktree / SSH runtimes',
-  verdict:'Open-source (AGPL) multi-model runner with SSH remotes + mobile-web server mode. GitHub work runs through the agent gh CLI; no Issues sync or a documented human terminal.'},
-
- {name:'Netclode',url:'https://github.com/angristan/netclode',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('no'),ghProjects:c('no'),prs:c('no'),
-  shell:c('yes','Full terminal inside isolated environments'),
-  agents:'Any harness — Claude, Codex, OpenCode, Copilot',agentsCnt:'any',agentsBeyond:'yes',
-  multi:c('yes','Isolated Kata microVMs per env'),
-  mobile:c('no','SSH client only (Tailscale)'),
-  deploy:'k3s + Kata microVMs + Tailscale · advanced homelab stack',
-  verdict:'Powerful but complex — more cloud-agent lab than a simple fleet manager.'},
-
- {name:'SwarmClaw',url:'https://swarmclaw.ai',link:'swarmclaw.ai',lab:false,
-  cost:{t:'free',label:'Free',price:'MIT'},
-  ghIssues:c('no','Shell / files / git tooling, no issue sync'),ghProjects:c('no'),prs:c('partial','Git tooling; no native PR feature'),
-  shell:c('partial','Shell + git tool surface; no dedicated human terminal'),
-  agents:'Claude, Codex, OpenCode, Gemini, Copilot, Cursor, Qwen, Goose + 24 providers',agentsCnt:'8 CLIs · 24 providers',agentsBeyond:'yes',
-  multi:c('partial','Per-agent encrypted credential injection'),
-  mobile:c('partial','Mobile-friendly responsive web'),
-  deploy:'Desktop installer / npm / Docker / cloud · agent teams (single host)',
-  verdict:'Best agent/model breadth (8 CLIs + 24 providers) with git tooling and flexible deploy. No GitHub Issues/Projects/PR glue; isolation only partial.'},
-
- {name:'OpenASE',url:'https://github.com/PacificStudio/openase',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'Apache-2.0'},
-  ghIssues:c('no','Own tickets/Kanban; GitHub webhook ingest for observability'),ghProjects:c('no'),prs:c('partial','Agents operate git; no native PR button'),
-  shell:c('partial','Conversational "Project AI" sidebar, not a raw terminal'),
-  agents:'Claude, Codex, Gemini CLI',agentsCnt:'3',agentsBeyond:'yes',
-  multi:c('yes','Per-org projects / providers / machines'),
-  mobile:c('no','Mobile / desktop apps on roadmap; web only now'),
-  deploy:'Single Go binary (web UI) · local / Docker · multi-machine',
-  verdict:'Multi-org control plane with per-org isolation and multi-machine reach. Runs its own tickets (no GitHub Issues), no real human shell, mobile is roadmap.'},
-
- {name:'Hermes Agent',url:'https://github.com/NousResearch/hermes-agent',link:'GitHub',lab:true,
-  cost:{t:'free',label:'Free',price:'Nous Research'},
-  ghIssues:c('no','Cron / webhooks, messaging gateways'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('partial','CLI/TUI + local web dashboard; not a server shell'),
-  agents:'Model-agnostic (OpenRouter or direct: Claude, GPT, local…)',agentsCnt:'many',agentsBeyond:'yes',
-  multi:c('partial','Profiles/secrets per instance'),
-  mobile:c('partial','Drive via Telegram / WhatsApp / Slack + web dashboard'),
-  deploy:'Per-machine CLI + dashboard · self-improving memory/skills',
-  verdict:'Self-improving agent with long-term memory. Messaging-gateway focus, not a shell fleet.'},
-
- {name:'Sortie',url:'https://github.com/sortie-ai/sortie',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'Apache-2.0'},
-  ghIssues:c('yes','Polls GitHub issues by label; drives todo→review→done'),ghProjects:c('no'),prs:c('partial','Hands off to a review state; CI / review feedback'),
-  shell:c('no','Headless daemon — no UI or shell'),
-  agents:'Claude, Codex, Copilot, OpenCode, Kiro',agentsCnt:'5',agentsBeyond:'yes',
-  multi:c('no'),
-  mobile:c('no','Headless daemon — no UI'),
-  deploy:'Single Go binary + SQLite · local / Docker · parallel issue workspaces',
-  verdict:'Cleanest issue-driven autopilot — point it at a repo + label and it grinds issues to a review state. But headless: no shell, no mobile, no multi-login.'},
-
- {name:'Multica',url:'https://multica.ai',link:'multica.ai',lab:true,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('partial','Own issues; GitHub PRs auto-link'),ghProjects:c('no','Own projects'),prs:c('partial'),
-  shell:c('no','No human SSH/interactive shell in the GUI'),
-  agents:'Claude, Codex, Gemini, Cursor, Copilot, OpenCode, Kiro, Kimi + more',agentsCnt:'8+',agentsBeyond:'yes',
-  multi:c('partial','Per-runtime'),
-  mobile:c('partial','Web (responsive)'),
-  deploy:'Web control plane + daemons on your machines · multi-machine',
-  verdict:'Excellent fleet orchestration — but the missing human shell is the deal-breaker.'},
-
- {name:'Paperclip',url:'https://github.com/paperclipai/paperclip',link:'GitHub',lab:true,
-  cost:{t:'free',label:'Free',price:'MIT'},
-  ghIssues:c('no','Own tickets; BYO ticket system on roadmap'),ghProjects:c('no'),prs:c('no'),
-  shell:c('no','No human terminal; external agents execute'),
-  agents:'Any agent/provider/runtime via adapters',agentsCnt:'any',agentsBeyond:'yes',
-  multi:c('yes','Per-agent runtime + secrets'),
-  mobile:c('partial','Web (responsive) control plane'),
-  deploy:'Node/React control plane · agents run anywhere via heartbeats',
-  verdict:'Great business-agent orchestrator (org chart of AI staff). Not a coding shell.'},
-
- {name:'Vibe Kanban',url:'https://github.com/BloopAI/vibe-kanban',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'open-source · sunsetting'},
-  ghIssues:c('partial','Own Kanban + GitHub PR flow'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('yes','Workspace terminal + dev server'),
-  agents:'Claude, Codex, Gemini, Copilot, Cursor, OpenCode, Qwen +',agentsCnt:'10+',agentsBeyond:'yes',
-  multi:c('partial'),
-  mobile:c('partial','Web (responsive)'),
-  deploy:'Local / self-hosted · mainly workspace-based',
-  verdict:'Feature-rich but sunsetting — don’t build a long-term workflow around it.'},
-
- {name:'OpenClaw',url:'https://github.com/openclaw/openclaw',link:'GitHub',lab:false,
-  cost:{t:'free',label:'Free',price:'open-source'},
-  ghIssues:c('partial','Connectors/workflows'),ghProjects:c('no'),prs:c('partial'),
-  shell:c('partial','Central gateway routes sessions/tools/channels'),
-  agents:'Model-agnostic; thousands of pre-built tools/workflows',agentsCnt:'many',agentsBeyond:'yes',
-  multi:c('partial'),
-  mobile:c('partial','Via chat channels (Slack/Telegram/…)'),
-  deploy:'Central gateway/controller (one long-running process) · broad connectors',
-  verdict:'Huge batteries-included connector ecosystem, but frequent updates break instances.'},
-
- {name:'Omnara',url:'https://github.com/omnara-ai/omnara',link:'GitHub',lab:false,
-  cost:{t:'hybrid',label:'OSS (legacy) + Cloud',price:'legacy archived'},
-  ghIssues:c('no'),ghProjects:c('no'),prs:c('no'),
-  shell:c('partial','Agent-session terminal, not a general shell'),
-  agents:'Claude-centric (legacy: Claude/Codex)',agentsCnt:'few',agentsBeyond:'partial',
-  multi:c('partial'),
-  mobile:c('yes','iOS + Android app (monitor/control from phone)'),
-  deploy:'Local executable + service · multiple machines/sessions',
-  verdict:'Not a strong fit now — direction moved away from the open wrapper model.'},
-
- {name:'Devin',url:'https://devin.ai',link:'devin.ai',lab:false,
-  cost:{t:'paid',label:'Paid',price:'from ~$20/mo (teams $$$)'},
-  ghIssues:c('yes','Works from issues, opens PRs'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('partial','Its own cloud workspace shell, not your servers'),
-  agents:'Devin’s own proprietary agent',agentsCnt:'1',agentsBeyond:'no',
-  multi:c('no'),
-  mobile:c('partial','Web + Slack (drive from phone)'),
-  deploy:'Cloud SaaS — not self-hosted',
-  verdict:'Autonomous cloud engineer. Polished, but single proprietary agent and not self-hosted.'},
-
- {name:'Cursor',url:'https://cursor.com',link:'cursor.com',lab:false,
-  cost:{t:'paid',label:'Paid',price:'Pro $20/mo + usage'},
-  ghIssues:c('partial','Background agents from issues/Slack'),ghProjects:c('no'),prs:c('yes'),
-  shell:c('partial','In-IDE terminal + cloud agents'),
-  agents:'Cursor models + some BYOK',agentsCnt:'few',agentsBeyond:'partial',
-  multi:c('no'),
-  mobile:c('partial','Mobile web for background agents'),
-  deploy:'Desktop IDE + cloud — not self-hosted/fleet',
-  verdict:'Polished IDE with cloud background agents. Not self-hosted; not a server-shell fleet.'},
+{"name":"Emdash","url":"https://emdash.sh","link":"emdash.sh","cost":{"t":"free","label":"Free","price":"Apache-2.0"},"ghIssues":{"s":"yes","note":"Create tasks from issues; PR, checks, merge"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"yes","note":"Integrated terminals; remote = SSH PTY"},"agents":"Claude, Codex, Gemini, OpenCode, Kilo + many more","agentsCnt":"31 CLIs","agentsBeyond":"yes","multi":{"s":"yes","note":"In-app browser keeps separate login profiles; per-task isolation"},"mobile":{"s":"no","note":"Desktop app only (Mac/Win/Linux)"},"deploy":"Desktop app · local + remote SSH + provisioned workspaces · multi-host","verdict":"Best overall fit — agent, diff, editor, terminal & in-app browser in one window. Gaps: desktop (not browser) control plane; no Projects sync.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"Paseo","url":"https://github.com/getpaseo/paseo","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"partial","note":"Attach issues/PRs as agent context"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"yes","note":"Built-in terminals; remote daemon control"},"agents":"Dozens of coding-agent CLIs","agentsCnt":"dozens","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-host config"},"mobile":{"s":"yes","note":"Mobile client (iOS/Android) + desktop/web/CLI"},"deploy":"Local daemon + desktop/mobile/web/CLI · remote daemons","verdict":"Very close on shell, models and hosts. GitHub issue/project sync is the weak spot.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"CloudCLI","url":"https://github.com/siteboon/claudecodeui","link":"GitHub","cost":{"t":"free","label":"Free","price":"GPL-3"},"ghIssues":{"s":"partial","note":"GitHub Issues Board plugin; task-sync"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"yes","note":"Full multi-tab xterm.js terminal"},"agents":"Claude, Codex, Gemini, Cursor, OpenCode","agentsCnt":"5+","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-project config"},"mobile":{"s":"yes","note":"Mobile-optimized web UI (use on the go)"},"deploy":"Lightweight web UI · one per host · no central fleet","verdict":"Best lightweight browser demo; excellent shell. Fleet management is the gap.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"RCFlow","url":"https://www.rcflow.app","link":"rcflow.app","cost":{"t":"free","label":"Free","price":"AGPL"},"ghIssues":{"s":"no","note":"Own tasks/projects"},"ghProjects":{"s":"no","note":""},"prs":{"s":"no","note":""},"shell":{"s":"yes","note":"Integrated full PTY xterm terminals"},"agents":"Claude, Codex, OpenCode (Anthropic/Bedrock/OpenAI-compat)","agentsCnt":"3+","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-worker config"},"mobile":{"s":"yes","note":"Mobile client (+ desktop)"},"deploy":"Self-hosted worker + desktop/mobile client · one client → many workers","verdict":"Strong shell + multi-host candidate. Main gap is GitHub sync; project is very new.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"Coder","url":"https://coder.com","link":"coder.com","cost":{"t":"hybrid","label":"OSS + Cloud","price":"free core · Premium $"},"ghIssues":{"s":"partial","note":"Repos + agent tasks; no issue-board sync"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"yes","note":"Browser terminal + normal SSH"},"agents":"Terminal/MCP agents, built-in modules, custom agents","agentsCnt":"broad","agentsBeyond":"yes","multi":{"s":"yes","note":"Per-workspace env/secrets isolate credentials"},"mobile":{"s":"partial","note":"Web (responsive); no native app"},"deploy":"Self-hosted control plane · provisioned workspaces across infra","verdict":"Best shell + infrastructure platform. Heavier setup, less issue-centric.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Claude Plane","url":"https://github.com/kodrunhq/claude-plane","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"partial","note":"GitHub bridge triggers jobs / relays notifs"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"yes","note":"Full xterm.js browser terminal, multi-view, persistent"},"agents":"Claude CLI only","agentsCnt":"Claude-only","agentsBeyond":"no","multi":{"s":"partial","note":"Per-worker"},"mobile":{"s":"partial","note":"Mobile browser terminal"},"deploy":"Docker control plane + agent per worker · distributed, NAT-friendly","verdict":"Best true browser shell/fleet newcomer. Major drawback: Claude-only & very young.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Agentrove","url":"https://github.com/Mng-dev-ai/agentrove","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"no","note":"Strong repo + PR tooling, no issue sync"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"yes","note":"Terminal + editor + files + diffs + Git in one"},"agents":"Claude, Codex, Copilot, Cursor, OpenCode","agentsCnt":"5+","agentsBeyond":"yes","multi":{"s":"yes","note":"Per-sandbox isolation (Docker/host)"},"mobile":{"s":"partial","note":"Web (responsive); desktop app too"},"deploy":"Docker web app · primarily single-host workspaces/sandboxes","verdict":"Promising all-in-one workspace. Young — maintainers warn of breaking changes.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"Jean","url":"https://github.com/coollabsio/jean","link":"GitHub","cost":{"t":"free","label":"Free","price":"Apache-2.0"},"ghIssues":{"s":"partial","note":"GitHub dashboard — Issues/PRs tabs; checkout PRs as worktrees"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"yes","note":"Multi-dock terminal (floating / left / right / bottom)"},"agents":"Claude, Codex, Cursor, OpenCode + MCP","agentsCnt":"4+","agentsBeyond":"yes","multi":{"s":"no","note":"Per-project config; no documented login isolation"},"mobile":{"s":"partial","note":"Headless web access over HTTP (mobile browser)"},"deploy":"Tauri desktop app + headless web mode · single-host","verdict":"Strong single-box fit — in-UI terminal, Claude/Codex/Cursor/OpenCode, GitHub Issues/PR dashboard with real PRs. Gaps: desktop-first, no Projects, no multi-login.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"AgentOS","url":"https://github.com/saadnvd1/agent-os","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"no","note":"Clone repos, manage Git/PRs from UI"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"yes","note":"Mobile-first, multi-pane terminals"},"agents":"Claude, Codex, OpenCode, Kilo, Gemini, Aider, Cursor, Amp, Pi + more","agentsCnt":"9+","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-session"},"mobile":{"s":"yes","note":"Mobile-first web (PWA) — designed for phones"},"deploy":"Self-hosted web + optional desktop wrapper · one server per machine","verdict":"Good mobile shell. Weak point is external issue/project sync.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"partial","note":""}},
+{"name":"AgentsMesh","url":"https://agentsmesh.ai","link":"agentsmesh.ai","cost":{"t":"hybrid","label":"Source + Cloud","price":"BSL-1.1 · self-host · BYOK cloud"},"ghIssues":{"s":"no","note":"Own Kanban tickets with MR/PR tracking"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":"Worktree isolation + PR tracking; no native PR author"},"shell":{"s":"yes","note":"PTY terminal per agent pod; multi-pane web console"},"agents":"Claude, Codex, Gemini, Aider, OpenCode + custom (MCP)","agentsCnt":"5+","agentsBeyond":"yes","multi":{"s":"partial","note":"BYOK per deployment"},"mobile":{"s":"yes","note":"Native iOS (SwiftUI) client + web / tablet"},"deploy":"Docker / K8s web + Electron + iOS · self-hosted runners across machines","verdict":"Most complete platform here — web/desktop/iOS clients, real PTY pods, many agents, true multi-machine runners. Gaps: own ticket board (no GitHub Issues), BSL license for prod.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"Conductor","url":"https://conductor.build","link":"conductor.build","cost":{"t":"free","label":"Free","price":"proprietary · BYO Claude/Codex"},"ghIssues":{"s":"yes","note":"Create a workspace from a GitHub issue → PR"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":"⌘⇧P opens a PR; drafts desc, fixes checks / review"},"shell":{"s":"yes","note":"Per-workspace terminal + saved Run commands"},"agents":"Claude Code, Codex, Cursor (+ Bedrock / Vertex / OpenRouter)","agentsCnt":"3","agentsBeyond":"partial","multi":{"s":"no","note":"Uses your single local Claude/Codex login"},"mobile":{"s":"no","note":"macOS desktop app only"},"deploy":"macOS desktop app · isolated git-worktree workspaces","verdict":"Polished Mac-native issue→terminal→PR flow with review/CI fixes. But closed-source, macOS-only (no Linux self-host), no mobile, no multi-login.","selfHosted":{"s":"yes","note":"runs on your Mac (BYO keys)"},"desktop":{"s":"yes","note":""}},
+{"name":"cmux","url":"https://github.com/manaflow-ai/cmux","link":"GitHub","cost":{"t":"hybrid","label":"OSS + Cloud","price":"GPL-3 · paid Founder tier"},"ghIssues":{"s":"no","note":""},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":"Surfaces linked PR status; no native PR author"},"shell":{"s":"yes","note":"Native terminal app (libghostty) — split panes / tabs"},"agents":"Claude, Codex, Gemini, Grok, Cursor, Copilot, Amp, OpenCode, Pi + more","agentsCnt":"13","agentsBeyond":"yes","multi":{"s":"no","note":""},"mobile":{"s":"partial","note":"Early-access iOS app; macOS desktop"},"deploy":"Native macOS desktop app (brew cask) · single-host","verdict":"Slick native terminal with the widest agent roster (13). But single-Mac desktop — no GitHub Issues/Projects, no fleet, no multi-login.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"OpenCode","url":"https://opencode.ai","link":"opencode.ai","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"yes","note":"/opencode in issues/PRs: triage, branch, fix, PR"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"partial","note":"Terminal-native; not a central remote-shell dashboard"},"agents":"Any of 75+ providers incl. free & local models","agentsCnt":"75+ providers","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-project auth file"},"mobile":{"s":"partial","note":"Mobile browser (web UI) / terminal"},"deploy":"Install per machine · no native central fleet plane","verdict":"Excellent runtime + GitHub issue worker. It is an agent, not a fleet manager by itself.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"Kilo.ai","url":"https://kilo.ai","link":"kilo.ai","cost":{"t":"hybrid","label":"OSS + Cloud","price":"BYOK free · cloud paid"},"ghIssues":{"s":"yes","note":"@kilocode-bot works in issues/PRs, opens a fixing PR"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"partial","note":"CLI + browser Console; not a remote-server shell"},"agents":"Hundreds of models, BYOK + local","agentsCnt":"100s of models","agentsBeyond":"yes","multi":{"s":"yes","note":"BYOK per workspace"},"mobile":{"s":"partial","note":"Cloud web console in mobile browser"},"deploy":"CLI / IDE components + hosted cloud control","verdict":"Best model freedom + GitHub issue workflow. Does not solve the server-shell need.","selfHosted":{"s":"partial","note":"OSS CLI/IDE; cloud agent control is hosted"},"desktop":{"s":"yes","note":""}},
+{"name":"mux","url":"https://github.com/coder/mux","link":"GitHub","cost":{"t":"free","label":"Free","price":"AGPL-3"},"ghIssues":{"s":"no","note":""},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":"Agent pushes branches / opens PR via gh"},"shell":{"s":"partial","note":"Agent workspaces; no documented human terminal"},"agents":"Claude, GPT / Codex, Grok, Ollama, OpenRouter models","agentsCnt":"multi-model","agentsBeyond":"yes","multi":{"s":"no","note":"Single ~/.mux config"},"mobile":{"s":"partial","note":"Server mode = responsive mobile web"},"deploy":"Electron desktop + server mode · local / worktree / SSH runtimes","verdict":"Open-source (AGPL) multi-model runner with SSH remotes + mobile-web server mode. GitHub work runs through the agent gh CLI; no Issues sync or a documented human terminal.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"Netclode","url":"https://github.com/angristan/netclode","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"no","note":""},"ghProjects":{"s":"no","note":""},"prs":{"s":"no","note":""},"shell":{"s":"yes","note":"Full terminal inside isolated environments"},"agents":"Any harness — Claude, Codex, OpenCode, Copilot","agentsCnt":"any","agentsBeyond":"yes","multi":{"s":"yes","note":"Isolated Kata microVMs per env"},"mobile":{"s":"no","note":"SSH client only (Tailscale)"},"deploy":"k3s + Kata microVMs + Tailscale · advanced homelab stack","verdict":"Powerful but complex — more cloud-agent lab than a simple fleet manager.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"SwarmClaw","url":"https://swarmclaw.ai","link":"swarmclaw.ai","cost":{"t":"free","label":"Free","price":"MIT"},"ghIssues":{"s":"no","note":"Shell / files / git tooling, no issue sync"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":"Git tooling; no native PR feature"},"shell":{"s":"partial","note":"Shell + git tool surface; no dedicated human terminal"},"agents":"Claude, Codex, OpenCode, Gemini, Copilot, Cursor, Qwen, Goose + 24 providers","agentsCnt":"8 CLIs · 24 providers","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-agent encrypted credential injection"},"mobile":{"s":"partial","note":"Mobile-friendly responsive web"},"deploy":"Desktop installer / npm / Docker / cloud · agent teams (single host)","verdict":"Best agent/model breadth (8 CLIs + 24 providers) with git tooling and flexible deploy. No GitHub Issues/Projects/PR glue; isolation only partial.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"yes","note":""}},
+{"name":"OpenASE","url":"https://github.com/PacificStudio/openase","link":"GitHub","cost":{"t":"free","label":"Free","price":"Apache-2.0"},"ghIssues":{"s":"no","note":"Own tickets/Kanban; GitHub webhook ingest for observability"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":"Agents operate git; no native PR button"},"shell":{"s":"partial","note":"Conversational \"Project AI\" sidebar, not a raw terminal"},"agents":"Claude, Codex, Gemini CLI","agentsCnt":"3","agentsBeyond":"yes","multi":{"s":"yes","note":"Per-org projects / providers / machines"},"mobile":{"s":"no","note":"Mobile / desktop apps on roadmap; web only now"},"deploy":"Single Go binary (web UI) · local / Docker · multi-machine","verdict":"Multi-org control plane with per-org isolation and multi-machine reach. Runs its own tickets (no GitHub Issues), no real human shell, mobile is roadmap.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Hermes Agent","url":"https://github.com/NousResearch/hermes-agent","link":"GitHub","cost":{"t":"free","label":"Free","price":"Nous Research"},"ghIssues":{"s":"no","note":"Cron / webhooks, messaging gateways"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"partial","note":"CLI/TUI + local web dashboard; not a server shell"},"agents":"Model-agnostic (OpenRouter or direct: Claude, GPT, local…)","agentsCnt":"many","agentsBeyond":"yes","multi":{"s":"partial","note":"Profiles/secrets per instance"},"mobile":{"s":"partial","note":"Drive via Telegram / WhatsApp / Slack + web dashboard"},"deploy":"Per-machine CLI + dashboard · self-improving memory/skills","verdict":"Self-improving agent with long-term memory. Messaging-gateway focus, not a shell fleet.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Sortie","url":"https://github.com/sortie-ai/sortie","link":"GitHub","cost":{"t":"free","label":"Free","price":"Apache-2.0"},"ghIssues":{"s":"yes","note":"Polls GitHub issues by label; drives todo→review→done"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":"Hands off to a review state; CI / review feedback"},"shell":{"s":"no","note":"Headless daemon — no UI or shell"},"agents":"Claude, Codex, Copilot, OpenCode, Kiro","agentsCnt":"5","agentsBeyond":"yes","multi":{"s":"no","note":""},"mobile":{"s":"no","note":"Headless daemon — no UI"},"deploy":"Single Go binary + SQLite · local / Docker · parallel issue workspaces","verdict":"Cleanest issue-driven autopilot — point it at a repo + label and it grinds issues to a review state. But headless: no shell, no mobile, no multi-login.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Multica","url":"https://multica.ai","link":"multica.ai","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"partial","note":"Own issues; GitHub PRs auto-link"},"ghProjects":{"s":"no","note":"Own projects"},"prs":{"s":"partial","note":""},"shell":{"s":"no","note":"No human SSH/interactive shell in the GUI"},"agents":"Claude, Codex, Gemini, Cursor, Copilot, OpenCode, Kiro, Kimi + more","agentsCnt":"8+","agentsBeyond":"yes","multi":{"s":"partial","note":"Per-runtime"},"mobile":{"s":"partial","note":"Web (responsive)"},"deploy":"Web control plane + daemons on your machines · multi-machine","verdict":"Excellent fleet orchestration — but the missing human shell is the deal-breaker.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Paperclip","url":"https://github.com/paperclipai/paperclip","link":"GitHub","cost":{"t":"free","label":"Free","price":"MIT"},"ghIssues":{"s":"no","note":"Own tickets; BYO ticket system on roadmap"},"ghProjects":{"s":"no","note":""},"prs":{"s":"no","note":""},"shell":{"s":"no","note":"No human terminal; external agents execute"},"agents":"Any agent/provider/runtime via adapters","agentsCnt":"any","agentsBeyond":"yes","multi":{"s":"yes","note":"Per-agent runtime + secrets"},"mobile":{"s":"partial","note":"Web (responsive) control plane"},"deploy":"Node/React control plane · agents run anywhere via heartbeats","verdict":"Great business-agent orchestrator (org chart of AI staff). Not a coding shell.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Vibe Kanban","url":"https://github.com/BloopAI/vibe-kanban","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source · sunsetting"},"ghIssues":{"s":"partial","note":"Own Kanban + GitHub PR flow"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"yes","note":"Workspace terminal + dev server"},"agents":"Claude, Codex, Gemini, Copilot, Cursor, OpenCode, Qwen +","agentsCnt":"10+","agentsBeyond":"yes","multi":{"s":"partial","note":""},"mobile":{"s":"partial","note":"Web (responsive)"},"deploy":"Local / self-hosted · mainly workspace-based","verdict":"Feature-rich but sunsetting — don’t build a long-term workflow around it.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"OpenClaw","url":"https://github.com/openclaw/openclaw","link":"GitHub","cost":{"t":"free","label":"Free","price":"open-source"},"ghIssues":{"s":"partial","note":"Connectors/workflows"},"ghProjects":{"s":"no","note":""},"prs":{"s":"partial","note":""},"shell":{"s":"partial","note":"Central gateway routes sessions/tools/channels"},"agents":"Model-agnostic; thousands of pre-built tools/workflows","agentsCnt":"many","agentsBeyond":"yes","multi":{"s":"partial","note":""},"mobile":{"s":"partial","note":"Via chat channels (Slack/Telegram/…)"},"deploy":"Central gateway/controller (one long-running process) · broad connectors","verdict":"Huge batteries-included connector ecosystem, but frequent updates break instances.","selfHosted":{"s":"yes","note":""},"desktop":{"s":"no","note":""}},
+{"name":"Omnara","url":"https://github.com/omnara-ai/omnara","link":"GitHub","cost":{"t":"hybrid","label":"OSS (legacy) + Cloud","price":"legacy archived"},"ghIssues":{"s":"no","note":""},"ghProjects":{"s":"no","note":""},"prs":{"s":"no","note":""},"shell":{"s":"partial","note":"Agent-session terminal, not a general shell"},"agents":"Claude-centric (legacy: Claude/Codex)","agentsCnt":"few","agentsBeyond":"partial","multi":{"s":"partial","note":""},"mobile":{"s":"yes","note":"iOS + Android app (monitor/control from phone)"},"deploy":"Local executable + service · multiple machines/sessions","verdict":"Not a strong fit now — direction moved away from the open wrapper model.","selfHosted":{"s":"partial","note":"current platform leans on its cloud service"},"desktop":{"s":"no","note":""}},
+{"name":"Devin","url":"https://devin.ai","link":"devin.ai","cost":{"t":"paid","label":"Paid","price":"from ~$20/mo (teams $$)"},"ghIssues":{"s":"yes","note":"Works from issues, opens PRs"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"partial","note":"Its own cloud workspace shell, not your servers"},"agents":"Devin’s own proprietary agent","agentsCnt":"1","agentsBeyond":"no","multi":{"s":"no","note":""},"mobile":{"s":"partial","note":"Web + Slack (drive from phone)"},"deploy":"Cloud SaaS — not self-hosted","verdict":"Autonomous cloud engineer. Polished, but single proprietary agent and not self-hosted.","selfHosted":{"s":"no","note":"cloud SaaS — runs on their servers"},"desktop":{"s":"no","note":""}},
+{"name":"Cursor","url":"https://cursor.com","link":"cursor.com","cost":{"t":"paid","label":"Paid","price":"Pro $20/mo + usage"},"ghIssues":{"s":"partial","note":"Background agents from issues/Slack"},"ghProjects":{"s":"no","note":""},"prs":{"s":"yes","note":""},"shell":{"s":"partial","note":"In-IDE terminal + cloud agents"},"agents":"Cursor models + some BYOK","agentsCnt":"few","agentsBeyond":"partial","multi":{"s":"no","note":""},"mobile":{"s":"partial","note":"Mobile web for background agents"},"deploy":"Desktop IDE + cloud — not self-hosted/fleet","verdict":"Polished IDE with cloud background agents. Not self-hosted; not a server-shell fleet.","selfHosted":{"s":"no","note":"desktop IDE + their cloud"},"desktop":{"s":"yes","note":""}}
 ];
 
 const MK={yes:['mk-y','✓'],partial:['mk-p','~'],no:['mk-n','–']};
 function mark(cell){
-  const [cls,sym]=MK[cell.s];
+  cell=cell||{s:'no',note:''};
+  const [cls,sym]=MK[cell.s]||MK.no;
   const note=cell.note?`<div class="cnote">${cell.note}</div>`:'';
   return `<div class="cell"><span class="mark ${cls}">${sym}</span>${note}</div>`;
 }
@@ -534,20 +298,20 @@ function costCell(c){
 function render(list){
   const rows=list.map((p)=>{
     const realRank=PLATFORMS.indexOf(p)+1;
-    const lab=p.lab?'<span class="badge b-lab">in my lab</span>':'';
-    const agentsBeyond=p.agentsBeyond==='no'?'<span class="mark mk-n" style="width:18px;height:18px;display:inline-flex">–</span> '
-      :p.agentsBeyond==='partial'?'<span class="mark mk-p" style="width:18px;height:18px;display:inline-flex">~</span> ':'';
+    const ab=p.agentsBeyond==='no'?'<span class="mark mk-n" style="width:17px;height:17px;display:inline-flex">–</span> '
+      :p.agentsBeyond==='partial'?'<span class="mark mk-p" style="width:17px;height:17px;display:inline-flex">~</span> ':'';
     return `<tr>
       <td class="c-rank"><span class="rank ${realRank<=3?'top':''}">${realRank}</span></td>
-      <td class="c-name"><div class="pname">${p.name} ${lab}</div>
+      <td class="c-name"><div class="pname">${p.name}</div>
         <a class="plink" href="${p.url}" target="_blank" rel="noopener">${p.link}
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a></td>
       <td>${costCell(p.cost)}</td>
+      <td>${mark(p.selfHosted)}</td>
       <td>${mark(p.ghIssues)}</td>
       <td>${mark(p.ghProjects)}</td>
       <td>${mark(p.prs)}</td>
       <td>${mark(p.shell)}</td>
-      <td class="agents">${agentsBeyond}${p.agents}<div class="cnt">${p.agentsCnt}</div></td>
+      <td class="agents">${ab}${p.agents}<div class="cnt">${p.agentsCnt}</div></td>
       <td>${mark(p.multi)}</td>
       <td>${mark(p.mobile)}</td>
       <td class="deploy">${p.deploy}</td>
@@ -557,35 +321,68 @@ function render(list){
   document.getElementById('rows').innerHTML=rows;
   document.getElementById('count').textContent=`Showing ${list.length} of ${PLATFORMS.length} platforms.`;
 }
+const FILTERS={
+  all:()=>true,
+  free:p=>p.cost.t!=='paid',
+  paid:p=>p.cost.t==='paid',
+  selfhosted:p=>p.selfHosted&&p.selfHosted.s==='yes',
+  mobile:p=>p.mobile&&p.mobile.s==='yes',
+  desktop:p=>p.desktop&&p.desktop.s==='yes',
+  shell:p=>p.shell.s==='yes',
+  github:p=>p.ghIssues.s==='yes'||p.prs.s==='yes',
+  beyond:p=>p.agentsBeyond==='yes'
+};
 let curFilter='all',curQ='';
 function apply(){
-  let list=PLATFORMS.filter(p=>{
-    if(curFilter==='free'&&p.cost.t==='paid')return false;
-    if(curFilter==='paid'&&p.cost.t!=='paid')return false;
-    if(curFilter==='lab'&&!p.lab)return false;
-    if(curFilter==='mobile'&&p.mobile.s==='no')return false;
-    if(curQ&&!(p.name+' '+p.agents+' '+p.verdict+' '+p.mobile.note).toLowerCase().includes(curQ))return false;
+  const f=FILTERS[curFilter]||FILTERS.all;
+  const list=PLATFORMS.filter(p=>{
+    if(!f(p))return false;
+    if(curQ&&!(p.name+' '+p.agents+' '+p.verdict+' '+(p.mobile.note||'')+' '+p.deploy).toLowerCase().includes(curQ))return false;
     return true;
   });
   render(list);
 }
-document.getElementById('filters').addEventListener('click',e=>{
-  const b=e.target.closest('.fbtn');if(!b)return;
-  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');curFilter=b.dataset.f;apply();
-});
+function setFilter(f){
+  curFilter=f;
+  document.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x.dataset.f===f));
+  apply();
+}
 document.getElementById('q').addEventListener('input',e=>{curQ=e.target.value.trim().toLowerCase();apply();});
-render(PLATFORMS);
 
-// stats strip
+// oblong clickable filter tiles (with live counts + icons)
+const ICN={
+  all:'<circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/>',
+  free:'<path d="M20 7H4V5h16zM3 7v13h18V7M9 11h6"/>',
+  paid:'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>',
+  selfhosted:'<rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/>',
+  mobile:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 19h2"/>',
+  desktop:'<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>'
+};
+function ico(k){return `<span class="fic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${ICN[k]}</svg></span>`;}
 (function(){
-  const total=PLATFORMS.length;
-  const free=PLATFORMS.filter(p=>p.cost.t!=='paid').length;
-  const mob=PLATFORMS.filter(p=>p.mobile.s==='yes').length;
-  const lab=PLATFORMS.filter(p=>p.lab).length;
-  const cells=[[total,'platforms compared'],[free,'free / open-source'],[mob,'with a mobile app'],[lab,'running in my lab']];
-  document.getElementById('stats').innerHTML=cells.map(s=>`<div class="stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('');
+  const n=f=>PLATFORMS.filter(FILTERS[f]).length;
+  const tiles=[
+    ['all',n('all'),'platforms compared'],
+    ['free',n('free'),'free / open-source'],
+    ['paid',n('paid'),'paid'],
+    ['selfhosted',n('selfhosted'),'self-hosted'],
+    ['mobile',n('mobile'),'with mobile app'],
+    ['desktop',n('desktop'),'with desktop app']
+  ];
+  const stats=document.getElementById('stats');
+  stats.innerHTML=tiles.map(([f,c,l])=>
+    `<div class="stat${f==='all'?' on':''}" data-f="${f}">${ico(f)}<b>${c}</b><span>${l}</span></div>`).join('');
+  stats.addEventListener('click',e=>{const t=e.target.closest('[data-f]');if(t)setFilter(t.dataset.f===curFilter&&t.dataset.f!=='all'?'all':t.dataset.f);});
 })();
+
+// clickable capability chips (hero "must" badges): shell · GitHub · beyond Claude/Codex · mobile
+document.querySelectorAll('.musts .must').forEach((m,i)=>{
+  const f=['shell','github','beyond','mobile'][i]; if(!f)return;
+  m.dataset.f=f; m.title='Click to filter';
+  m.addEventListener('click',()=>setFilter(curFilter===f?'all':f));
+});
+
+render(PLATFORMS);
 
 // toast helper
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
