@@ -1,19 +1,22 @@
 <!-- This file is AUTO-GENERATED from site/index.html by bin/gen-readme.js. Do not edit by hand. -->
-# ⚖️ Agent Arena — Self-Hosted AI Agent Platform Comparison
+# Awesome Agent Platforms [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
-### ▶︎ Live, interactive version: **https://agents.jrdevelopr.site**
+[![Live site](https://img.shields.io/badge/live-agents.jrdevelopr.site-2563eb?logo=googlechrome&logoColor=white)](https://agents.jrdevelopr.site) [![Platforms](https://img.shields.io/badge/platforms-27-0e9f6e)](https://agents.jrdevelopr.site) [![Auto-updated weekly](https://img.shields.io/badge/auto--updated-weekly-7c3aed)](bin/discover.sh) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-A continuously-updated comparison of self-hosted (and a few notable paid) **AI coding-agent platforms**.
+> A ranked, **self-hosted-first** comparison of AI coding-agent platforms — find the best tool to **run and manage AI coding agents** from one place.
+
+### ▶︎ Live, interactive version → **https://agents.jrdevelopr.site**
+
 The goal: **one tool that does everything** — open an interactive shell, pull a GitHub issue, run any
 agent CLI, and ship a PR, without tab-hopping to a separate terminal.
 
-**Ranked by** (best fit first): one-click **human shell** · **GitHub** issue sync + PRs/push ·
-**many agents/models** (beyond Claude & Codex) · **multiple logins** (separate client subscriptions) ·
-**mobile** access. Self-hosted & free preferred; paid options are included and clearly marked.
+**Ranked by** (best fit first): **self-hosted** (runs on *your* machines) · one-click **human shell** ·
+**GitHub** issue sync + PRs/push · **many agents/models** (beyond Claude & Codex) · **multiple logins**
+(separate client subscriptions) · **mobile** access. Free & self-hosted preferred; paid options are included and clearly marked.
 
 **Legend:** ✅ native / strong · 🟡 partial / context-only · ➖ not documented &nbsp;|&nbsp;
-*Multiple logins* = isolate separate Claude/agent subscriptions per project. *Mobile* ✅ = app or
-mobile-first; 🟡 = mobile browser / chat; ➖ = desktop / SSH only.
+*Self-hosted* ✅ = runs entirely on your own machines (not the vendor's cloud). *Multiple logins* =
+isolate separate Claude/agent subscriptions per project. *Mobile* ✅ = app or mobile-first.
 
 | # | Platform | Cost | Self-hosted | GitHub Issues | GH Projects | PRs / push | One-click shell | Multiple logins | Mobile | Agents / models | Bottom line |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -52,7 +55,7 @@ The table is generated from the data in **[`site/index.html`](site/index.html)**
 array). A weekly bot scans curated lists of new agent platforms, adds any that are missing, re-ranks,
 and regenerates both the live site and this README — so they never drift.
 
-**Suggest a platform:** [open an issue](https://github.com/jrdevelopr/agents/issues/new?title=Suggest%20a%20platform:%20).
+**Suggest a platform:** [open an issue](https://github.com/jrdevelopr/awesome-agent-platforms/issues/new?title=Suggest%20a%20platform:%20).
 
 <sub>Ratings are based on official docs/repos; “➖”/“🟡” are used instead of guessing. GitHub Projects = GitHub's
 boards, not a product's internal Kanban. Prices are list-price estimates and change often — verify before buying.
