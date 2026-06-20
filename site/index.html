@@ -127,15 +127,17 @@
   .mk-n{background:rgba(82,91,110,.18);color:var(--no)}
 
   /* table */
-  .tablecard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  .scroll{overflow:auto;max-height:calc(100vh - 92px)}
-  table{border-collapse:separate;border-spacing:0;width:100%;min-width:1340px}
-  thead th{position:sticky;top:0;z-index:3;background:var(--thead);color:var(--mut);font-size:10.5px;
+  .tablecard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:visible}
+  .scroll{overflow:visible}
+  table{border-collapse:separate;border-spacing:0;width:100%;min-width:1180px}
+  thead th{position:sticky;top:60px;z-index:3;background:var(--thead);color:var(--mut);font-size:10.5px;
     letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:9px 7px;font-weight:700;
     border-bottom:1px solid var(--line);white-space:nowrap}
   th .hh{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--mut)}
   th .hh svg{opacity:.9}
   th .hh span{font-size:9px;letter-spacing:.03em;line-height:1}
+  th .hhl{display:inline-flex;align-items:center;gap:6px;color:var(--mut)}
+  th .hhl svg{flex:0 0 auto;opacity:.9}
   thead th.l{text-align:left}
   tbody td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:center}
   tbody tr:last-child td{border-bottom:none}
@@ -143,7 +145,7 @@
   /* sticky first columns */
   .c-rank{width:42px}
   th.c-name,td.c-name{position:sticky;left:0;z-index:2;background:var(--panel);text-align:left;
-    min-width:188px;border-right:1px solid var(--line)}
+    min-width:168px;border-right:1px solid var(--line)}
   tbody tr:hover td.c-name{background:var(--panel2)}
   thead th.c-name{z-index:4;background:var(--thead)}
 
@@ -164,21 +166,44 @@
 
   .cell{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
   .cnote{font-size:10px;color:var(--mut2);max-width:118px;line-height:1.3}
-  .agents{text-align:left;min-width:140px;color:var(--txt);font-size:12px}
+  .agents{text-align:left;min-width:118px;color:var(--txt);font-size:12px}
   .agents .cnt{font-size:10.5px;color:var(--accentB);font-weight:700}
-  .deploy{text-align:left;min-width:140px;color:var(--mut);font-size:11.5px;line-height:1.38}
-  .verdict{text-align:left;min-width:210px;color:var(--txt);font-size:11.7px;line-height:1.42}
+  .deploy{text-align:left;min-width:108px;color:var(--mut);font-size:11.5px;line-height:1.38}
+  .verdict{text-align:left;min-width:165px;color:var(--txt);font-size:11.7px;line-height:1.42}
   .mark{width:21px;height:21px}
 
   footer{color:var(--mut);font-size:13px;padding:34px 0 60px;line-height:1.7}
   footer .src{color:var(--mut2);font-size:12px}
   .hr{height:1px;background:var(--line);margin:30px 0}
 
-  @media(max-width:680px){
+  /* mobile / tablet card view (table is hidden below 1220px) */
+  .cards{display:none;gap:12px;margin-top:6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 15px}
+  .crow1{display:flex;align-items:center;gap:11px}
+  .crank{font-weight:800;color:var(--mut2);font-size:15px;font-variant-numeric:tabular-nums;min-width:22px}
+  .cmain{flex:1;min-width:0}
+  .cnm{font-weight:800;color:var(--txt);font-size:16px}
+  .clink{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--mut);margin-top:1px}
+  .cbadge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:5px 10px;border-radius:8px;white-space:nowrap}
+  .cbadge.free{background:rgba(52,211,153,.13);color:var(--free)}
+  .cbadge.hybrid{background:rgba(91,157,255,.13);color:var(--hybrid)}
+  .cbadge.paid{background:rgba(251,113,133,.14);color:var(--paid)}
+  .ccaps{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 0}
+  .cap{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--txt);
+    background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+  .cap .m{font-weight:800}.cap .m.y{color:var(--yes)}.cap .m.p{color:var(--part)}.cap .m.n{color:var(--no)}
+  .cag{margin-top:11px;font-size:13px;color:var(--txt)}
+  .cag .cnt{color:var(--accentB);font-size:11.5px;font-weight:700;margin-left:4px}
+  .cvd{margin-top:9px;font-size:12.5px;color:var(--mut);line-height:1.45}
+
+  @media(max-width:1219px){ .tablecard{display:none} .cards{display:grid} }
+  @media(min-width:760px) and (max-width:1219px){ .cards{grid-template-columns:1fr 1fr} }
+  @media(max-width:759px){
     header.hero{padding:34px 0 18px}
     .must{font-size:12.5px;padding:8px 11px}
-    tbody td,thead th{padding:11px 8px}
-    .verdict,.agents,.deploy{font-size:12px}
+    .legend{display:none}
+    .cap.more{display:none}
+    .cvd{display:none}
   }
 </style>
 </head>
@@ -248,17 +273,18 @@
             <th title="GitHub Projects board sync"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="4.5" height="16" rx="1"/><rect x="9.75" y="4" width="4.5" height="11" rx="1"/><rect x="16.5" y="4" width="4.5" height="7" rx="1"/></svg><span>Projects</span></span></th>
             <th title="Pull requests / push to GitHub"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6"/><circle cx="18" cy="6" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg><span>PRs</span></span></th>
             <th title="One-click human shell — integrated interactive terminal"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><span>Shell</span></span></th>
-            <th class="l">Agents / models</th>
+            <th class="l" title="Agents / models supported"><span class="hhl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="8" width="15" height="11" rx="2.5"/><path d="M12 8V5.5"/><circle cx="12" cy="4" r="1.6"/><path d="M9.5 13h.01M14.5 13h.01M9.5 16h5"/><path d="M2.5 12v3M21.5 12v3"/></svg>Agents / models</span></th>
             <th title="Multiple logins — isolate separate subscriptions/accounts per project"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Logins</span></span></th>
             <th title="Mobile — native app or mobile-web access"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 19h2"/></svg><span>Mobile</span></span></th>
-            <th class="l">Deploy / fleet</th>
-            <th class="l">Bottom line</th>
+            <th class="l" title="Deployment / fleet — how &amp; where it runs across machines"><span class="hhl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></svg>Deploy / fleet</span></th>
+            <th class="l" title="Bottom line — the verdict / summary"><span class="hhl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15a0 0 0 01 0 0H5a0 0 0 01 0 0V3z"/><path d="M15 3v4h4M8.5 12h7M8.5 16h5"/></svg>Bottom line</span></th>
           </tr>
         </thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
   </div>
+  <div class="cards" id="cards"></div>
 
   <footer>
     <p><b style="color:var(--txt)">How this is ranked.</b> Order reflects one workflow above all: a single tool where you open a real shell, intake a GitHub issue, run the agent of your choice, and push a PR — without tab-hopping. Tools with no human shell drop, however strong their orchestration. “Multiple logins” = can you isolate separate Claude/agent subscriptions per project (e.g. a client's plan vs. your own). <b style="color:var(--txt)">Self-hosted</b> ✓ = runs entirely on your own machines (not the vendor's servers) — free-but-cloud-only scores ➖/~. <b style="color:var(--txt)">Mobile</b> column: <span class="mark mk-y" style="width:18px;height:18px">✓</span> dedicated app or mobile-first experience (note says iOS/Android) · <span class="mark mk-p" style="width:18px;height:18px">~</span> usable from a mobile browser or chat app, no native app · <span class="mark mk-n" style="width:18px;height:18px">–</span> desktop / SSH only.</p>
@@ -334,6 +360,17 @@ function render(list){
     </tr>`;
   }).join('');
   document.getElementById('rows').innerHTML=rows;
+  // card view (tablet / mobile)
+  const cm=c=>({yes:['y','✓'],partial:['p','~'],no:['n','–']}[(c||{s:'no'}).s]||['n','–']);
+  const cap=(label,cell,more)=>{const a=cm(cell);return `<span class="cap${more?' more':''}"><span class="m ${a[0]}">${a[1]}</span>${label}</span>`;};
+  document.getElementById('cards').innerHTML=list.map(p=>`<div class="card">
+      <div class="crow1"><span class="crank">${PLATFORMS.indexOf(p)+1}</span>
+        <div class="cmain"><div class="cnm">${p.name}</div><a class="clink" href="${p.url}" target="_blank" rel="noopener">${p.link} ↗</a></div>
+        <span class="cbadge ${p.cost.t}">${p.cost.label}</span></div>
+      <div class="ccaps">${cap('Self-host',p.selfHosted)}${cap('Shell',p.shell)}${cap('GitHub',p.ghIssues)}${cap('Mobile',p.mobile)}${cap('PRs',p.prs,1)}${cap('Projects',p.ghProjects,1)}${cap('Logins',p.multi,1)}${cap('Desktop',p.desktop,1)}</div>
+      <div class="cag">${p.agents}<span class="cnt">${p.agentsCnt}</span></div>
+      <div class="cvd">${p.verdict}</div>
+    </div>`).join('');
   document.getElementById('count').textContent=`Showing ${list.length} of ${PLATFORMS.length} platforms.`;
 }
 const FILTERS={
