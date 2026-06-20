@@ -293,7 +293,7 @@
             <th class="c-exp" aria-hidden="true"></th>
             <th class="c-rank">#</th>
             <th class="c-name l" title="Platform name + current GitHub stars (popularity)">Platform <span style="opacity:.65;font-weight:600;text-transform:none;letter-spacing:0">· ★ stars</span></th>
-            <th title="Cost / license"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span>Cost</span></span></th>
+            <th title="Cost / license"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L3 12V3h9l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><span>Cost</span></span></th>
             <th title="Self-hosted — runs entirely on your own machines, not their servers"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span>Self-host</span></span></th>
             <th title="One-click human shell — integrated interactive terminal"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><span>Shell</span></span></th>
             <th title="GitHub Issues — two-way sync"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.8 1.2.8 1.2.6-1.6 2.6-1.6 2.9-1.2.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg><span>GitHub</span></span></th>
@@ -487,7 +487,7 @@ document.getElementById('resetF').addEventListener('click',clearFilters);
 // oblong clickable filter tiles (live counts + icons) — stack as many as you like (OR)
 const ICN={
   free:'<path d="M20 7H4V5h16zM3 7v13h18V7M9 11h6"/>',
-  paid:'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>',
+  paid:'<path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L3 12V3h9l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7.5" cy="7.5" r="1.3"/>',
   hybrid:'<path d="M17.5 19a4.5 4.5 0 00.5-9 6 6 0 00-11.6 1.5A3.5 3.5 0 006.5 19z"/>',
   selfhosted:'<rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/>',
   shell:'<rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/>',
