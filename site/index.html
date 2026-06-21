@@ -135,9 +135,9 @@
   /* table — compact spreadsheet rows; click a row to expand its detail */
   .tablecard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:visible}
   .scroll{overflow:visible}
-  table{border-collapse:separate;border-spacing:0;width:100%;min-width:880px;table-layout:fixed}
-  /* Platform + Cost fixed; the mark columns share the rest equally (even spreadsheet lanes) */
-  .cg-exp{width:34px}.cg-rank{width:42px}.cg-name{width:248px}.cg-cost{width:132px}
+  table{border-collapse:separate;border-spacing:0;width:100%;min-width:1060px;table-layout:fixed}
+  /* Platform + Models + Cost fixed; the mark columns share the rest equally (even spreadsheet lanes) */
+  .cg-exp{width:34px}.cg-rank{width:42px}.cg-name{width:222px}.cg-mdl{width:212px}.cg-cost{width:122px}
   .cg-m{width:auto}
   thead th{position:sticky;top:60px;z-index:3;background:var(--thead);color:var(--thtxt);font-size:11px;
     letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:10px 7px;font-weight:700;
@@ -224,8 +224,20 @@
   .cdep{margin-top:9px;font-size:12px;color:var(--mut);line-height:1.4}
   .cdep b{color:var(--txt)}
 
-  @media(max-width:899px){ .tablecard{display:none} .cards{display:grid} }
-  @media(min-width:600px) and (max-width:899px){ .cards{grid-template-columns:1fr 1fr} }
+  /* models column */
+  .mdlcell{text-align:left;font-size:12px;color:var(--txt);line-height:1.42}
+  .mdl-head{font-weight:600}
+  .mdl-x{color:var(--mut2);font-weight:600}
+  .mdl-rest{display:none;color:var(--mut)}
+  .mdlcell.open .mdl-rest{display:inline}
+  .mdl-more{cursor:pointer;border:none;background:none;color:var(--accentB);font-size:11px;
+    font-weight:700;padding:0 0 0 5px;white-space:nowrap}
+  .mdl-more:hover{text-decoration:underline}
+  .mdl-all{display:none;margin-left:7px;font-size:11px;font-weight:600;white-space:nowrap}
+  .mdlcell.open .mdl-all{display:inline}
+
+  @media(max-width:1059px){ .tablecard{display:none} .cards{display:grid} }
+  @media(min-width:600px) and (max-width:1059px){ .cards{grid-template-columns:1fr 1fr} }
   @media(max-width:599px){
     header.hero{padding:34px 0 18px}
     .must{font-size:12.5px;padding:8px 11px}
@@ -293,7 +305,7 @@
     <div class="scroll">
       <table>
         <colgroup>
-          <col class="cg-exp"><col class="cg-rank"><col class="cg-name"><col class="cg-cost">
+          <col class="cg-exp"><col class="cg-rank"><col class="cg-name"><col class="cg-mdl"><col class="cg-cost">
           <col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m">
         </colgroup>
         <thead>
@@ -301,6 +313,7 @@
             <th class="c-exp" aria-hidden="true"></th>
             <th class="c-rank">#</th>
             <th class="c-name l" title="Platform name + current GitHub stars (popularity)">Platform <span style="opacity:.65;font-weight:600;text-transform:none;letter-spacing:0">· ★ stars</span></th>
+            <th class="l" title="Agents / models supported"><span class="hhl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="8" width="15" height="11" rx="2.5"/><path d="M12 8V5.5"/><circle cx="12" cy="4" r="1.6"/><path d="M9.5 13h.01M14.5 13h.01M9.5 16h5"/><path d="M2.5 12v3M21.5 12v3"/></svg>Agents / models</span></th>
             <th title="Cost / license"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L3 12V3h9l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><span>Cost</span></span></th>
             <th title="Self-hosted — runs entirely on your own machines, not their servers"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span>Self-host</span></span></th>
             <th title="GitHub Issues — two-way sync"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.8 1.2.8 1.2.6-1.6 2.6-1.6 2.9-1.2.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg><span>Issues</span></span></th>
@@ -381,6 +394,33 @@ function starsEl(p){
   return `<span class="stars" title="${p.stars.toLocaleString()} GitHub stars"><span class="st">★</span>${fmtStars(p.stars)}</span>`;
 }
 function markSym(cell){const [cls,sym]=MK[(cell||{s:'no'}).s]||MK.no;return `<span class="mark ${cls}">${sym}</span>`;}
+// Models column: show the first couple, toggle to reveal the rest (capped), link out for the full list.
+const HEAD=2, CAP=9;
+function parseModels(agents){
+  let more='', s=String(agents||'');
+  const m=s.match(/\s*[+]\s*(.+)$/);                 // trailing "+ many more" / "+ custom (MCP)"
+  if(m){ more=m[1].trim(); s=s.slice(0,m.index); }
+  const list=s.split(',').map(x=>x.trim()).filter(Boolean);
+  return {list, more};
+}
+function modelsCell(p){
+  const {list,more}=parseModels(p.agents);
+  // descriptive (no real comma list) — just show the phrase
+  if(list.length<=1){
+    const tail=more?` <span class="mdl-x">+ ${more}</span>`:'';
+    return `<td class="mdlcell"><span class="mdl-head">${list[0]||p.agents}${tail}</span></td>`;
+  }
+  const head=list.slice(0,HEAD).join(', ');
+  const restList=list.slice(HEAD,CAP);
+  const rest=restList.length?', '+restList.join(', '):'';
+  const truncated=list.length>CAP || !!more;          // there are more than we show
+  const moreLbl=`+ ${list.length-HEAD>0?(list.length>CAP?(list.length-HEAD)+'+':(list.length-HEAD)):''} more`.replace(/\s+/g,' ');
+  return `<td class="mdlcell">
+    <span class="mdl-head">${head}</span><span class="mdl-rest">${rest}</span>
+    <button class="mdl-more" type="button" data-more="${moreLbl}">${moreLbl}</button>
+    ${truncated?`<a class="mdl-all" href="${p.url}" target="_blank" rel="noopener">full list ↗</a>`:''}
+  </td>`;
+}
 const CHEV='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
 const EXT='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>';
 function noteTd(cell){
@@ -394,12 +434,12 @@ function detailRows(p){
   const notes=`<tr class="drow drow-notes" hidden>
     <td class="c-exp"></td><td class="c-rank"></td>
     <td class="c-name"><span class="dhint">Per-column detail</span></td>
+    <td class="dncell">${p.agentsCnt?`<span class="dntext">${ab}${p.agentsCnt}</span>`:'<span class="dndash">·</span>'}</td>
     <td></td>
     ${noteTd(p.selfHosted)}${noteTd(p.ghIssues)}${noteTd(p.ghProjects)}${noteTd(p.prs)}${noteTd(p.shell)}${noteTd(p.multi)}${noteTd(p.mobile)}${noteTd(p.desktop)}
   </tr>`;
-  // (2) free-text summary (no natural column) — agents, deploy, and the bottom line
-  const summary=`<tr class="drow drow-sum" hidden><td colspan="12"><div class="dsum">
-    <div class="dblock"><h4>Agents / models</h4><p>${ab}${p.agents} <span class="cnt">${p.agentsCnt}</span></p></div>
+  // (2) free-text summary (no natural column) — deploy and the bottom line
+  const summary=`<tr class="drow drow-sum" hidden><td colspan="13"><div class="dsum">
     <div class="dblock"><h4>Deploy / fleet</h4><p>${p.deploy}</p></div>
     <div class="dblock wide"><h4>Bottom line — what users say</h4><p>${p.verdict}</p></div>
   </div></td></tr>`;
@@ -413,6 +453,7 @@ function render(list){
       <td class="c-rank"><span class="rank">${i+1}</span></td>
       <td class="c-name"><div class="pname">${p.name} ${starsEl(p)}</div>
         <a class="plink" href="${p.url}" target="_blank" rel="noopener">${p.link} ${EXT}</a></td>
+      ${modelsCell(p)}
       <td>${costCell(p.cost)}</td>
       <td>${markSym(p.selfHosted)}</td>
       <td>${markSym(p.ghIssues)}</td>
@@ -460,7 +501,11 @@ function toggleRow(tr){
   rowsEl.querySelectorAll('.prow.open').forEach(r=>{r.classList.remove('open');r.setAttribute('aria-expanded','false');setDetail(r,false);});
   if(willOpen){tr.classList.add('open');tr.setAttribute('aria-expanded','true');setDetail(tr,true);}
 }
-rowsEl.addEventListener('click',e=>{ if(e.target.closest('a'))return; const tr=e.target.closest('.prow'); if(tr)toggleRow(tr); });
+rowsEl.addEventListener('click',e=>{
+  if(e.target.closest('a'))return;
+  const mb=e.target.closest('.mdl-more');               // models "+ more" toggle — don't expand the row
+  if(mb){ const cell=mb.closest('.mdlcell'); const open=cell.classList.toggle('open'); mb.textContent=open?'less':mb.dataset.more; return; }
+  const tr=e.target.closest('.prow'); if(tr)toggleRow(tr); });
 rowsEl.addEventListener('keydown',e=>{ if(e.key!=='Enter'&&e.key!==' ')return; const tr=e.target.closest('.prow');
   if(tr){e.preventDefault();toggleRow(tr);} });
 const cardsEl=document.getElementById('cards');
