@@ -306,7 +306,8 @@
       <table>
         <colgroup>
           <col class="cg-exp"><col class="cg-rank"><col class="cg-name"><col class="cg-mdl"><col class="cg-cost">
-          <col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m">
+          <!-- 7 mark columns (Logins hidden 2026-06-21 — add one cg-m back to restore) -->
+          <col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m"><col class="cg-m">
         </colgroup>
         <thead>
           <tr>
@@ -320,7 +321,9 @@
             <th title="GitHub Projects board sync"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="4.5" height="16" rx="1"/><rect x="9.75" y="4" width="4.5" height="11" rx="1"/><rect x="16.5" y="4" width="4.5" height="7" rx="1"/></svg><span>Projects</span></span></th>
             <th title="Pull requests / push to GitHub"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6"/><circle cx="18" cy="6" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg><span>PRs</span></span></th>
             <th title="One-click human shell — integrated interactive terminal"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><span>Shell</span></span></th>
+<!-- LOGINS hidden 2026-06-21 (issue #18, revisit #19): to restore, uncomment this th, add one <col class="cg-m"> back to the colgroup, restore markSym(p.multi) + noteTd(p.multi), and bump the summary colspan 12->13.
             <th title="Multiple logins — isolate separate subscriptions/accounts per project"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Logins</span></span></th>
+-->
             <th title="Mobile — native app or mobile-web access"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 19h2"/></svg><span>Mobile</span></span></th>
             <th title="Desktop app — native desktop client"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>Desktop</span></span></th>
           </tr>
@@ -436,10 +439,10 @@ function detailRows(p){
     <td class="c-name"><span class="dhint">Per-column detail</span></td>
     <td class="dncell">${p.agentsCnt?`<span class="dntext">${ab}${p.agentsCnt}</span>`:'<span class="dndash">·</span>'}</td>
     <td></td>
-    ${noteTd(p.selfHosted)}${noteTd(p.ghIssues)}${noteTd(p.ghProjects)}${noteTd(p.prs)}${noteTd(p.shell)}${noteTd(p.multi)}${noteTd(p.mobile)}${noteTd(p.desktop)}
+    ${noteTd(p.selfHosted)}${noteTd(p.ghIssues)}${noteTd(p.ghProjects)}${noteTd(p.prs)}${noteTd(p.shell)}${noteTd(p.mobile)}${noteTd(p.desktop)}
   </tr>`;
   // (2) free-text summary (no natural column) — deploy and the bottom line
-  const summary=`<tr class="drow drow-sum" hidden><td colspan="13"><div class="dsum">
+  const summary=`<tr class="drow drow-sum" hidden><td colspan="12"><div class="dsum">
     <div class="dblock"><h4>Deploy / fleet</h4><p>${p.deploy}</p></div>
     <div class="dblock wide"><h4>Bottom line — what users say</h4><p>${p.verdict}</p></div>
   </div></td></tr>`;
@@ -460,7 +463,7 @@ function render(list){
       <td>${markSym(p.ghProjects)}</td>
       <td>${markSym(p.prs)}</td>
       <td>${markSym(p.shell)}</td>
-      <td>${markSym(p.multi)}</td>
+      <!-- LOGINS hidden: restore -> <td>${'$'}{markSym(p.multi)}</td> -->
       <td>${markSym(p.mobile)}</td>
       <td>${markSym(p.desktop)}</td>
     </tr>
