@@ -31,11 +31,11 @@ const cost = c => c.t === 'paid' ? `💲 **Paid** <br><sub>${esc(c.price)}</sub>
 const header = `<!-- This file is AUTO-GENERATED from site/index.html by bin/gen-readme.js. Do not edit by hand. -->
 # AI Builders Toolkit
 
-[![Live site](https://img.shields.io/badge/live-agents.jrdevelopr.site-2563eb?logo=googlechrome&logoColor=white)](https://agents.jrdevelopr.site) [![Platforms](https://img.shields.io/badge/platforms-${P.length}-0e9f6e)](https://agents.jrdevelopr.site) [![Auto-updated weekly](https://img.shields.io/badge/auto--updated-weekly-7c3aed)](bin/discover.sh) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Live site](https://img.shields.io/badge/live-aibuilders.jrdevelopr.site-2563eb?logo=googlechrome&logoColor=white)](https://aibuilders.jrdevelopr.site) [![Platforms](https://img.shields.io/badge/platforms-${P.length}-0e9f6e)](https://aibuilders.jrdevelopr.site) [![Auto-updated weekly](https://img.shields.io/badge/auto--updated-weekly-7c3aed)](bin/discover.sh) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 > An **alphabetical, self-hosted-first** comparison of AI coding-agent platforms — find the best tool to **run and manage AI coding agents** from one place.
 
-### ▶︎ Live, interactive version → **https://agents.jrdevelopr.site**
+### ▶︎ Live, interactive version → **https://aibuilders.jrdevelopr.site**
 
 The goal: **one tool that does everything** — open an interactive shell, pull a GitHub issue, run any
 agent CLI, and ship a PR, without tab-hopping to a separate terminal.

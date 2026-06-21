@@ -22,7 +22,7 @@
     <path d="M20 22l13 13-13 13M37 48h15" fill="none" stroke="#04140d" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
   <text x="162" y="120" fill="#e7ebf3" font-size="30" font-weight="700">AI Builders Toolkit</text>
-  <text x="162" y="152" fill="#94a0b6" font-size="20" font-weight="600">agents.jrdevelopr.site</text>
+  <text x="162" y="152" fill="#94a0b6" font-size="20" font-weight="600">aibuilders.jrdevelopr.site</text>
 
   <!-- headline -->
   <text x="80" y="290" fill="#ffffff" font-size="76" font-weight="800" letter-spacing="-1">The complete AI</text>

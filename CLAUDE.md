@@ -2,7 +2,7 @@
 
 Public one-page comparison of self-hosted (and notable paid) AI agent platforms.
 
-- **Public URL:** https://agents.jrdevelopr.site — **ungated / open** (shareable; NO lab-gate).
+- **Public URL:** https://aibuilders.jrdevelopr.site — **ungated / open** (shareable; NO lab-gate).
 - **Local:** http://192.168.20.108:8088
 - **Type:** docker, self-managed. `caddy:2-alpine` file-server serving `site/` on host port 8088.
 - **Bring up:** `cd ~/apps/agents && docker compose -p agents up -d`
