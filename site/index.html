@@ -264,10 +264,13 @@
   }
 
   /* ── tab bar (Platforms | Agent Tools) ───────────────────────────── */
-  .tabs{display:flex;gap:6px;margin:22px 0 -6px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .tabs{display:flex;gap:6px;margin:22px 0 -6px;border-bottom:1px solid var(--line);
+    overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .tabs::-webkit-scrollbar{display:none}
   .tab{appearance:none;border:0;background:none;cursor:pointer;font:inherit;color:var(--mut);
     font-weight:700;font-size:15px;letter-spacing:-.01em;padding:11px 16px 13px;border-radius:10px 10px 0 0;
-    display:flex;align-items:center;gap:9px;position:relative;transition:color .15s,background .15s}
+    display:flex;align-items:center;gap:9px;position:relative;transition:color .15s,background .15s;
+    flex:0 0 auto;white-space:nowrap;scroll-snap-align:start}
   .tab svg{width:17px;height:17px;opacity:.85}
   .tab:hover{color:var(--txt);background:color-mix(in srgb,var(--panel) 60%,transparent)}
   .tab.on{color:var(--txt)}
@@ -1484,7 +1487,7 @@ document.getElementById('bcountEy').textContent=BLOCKS.length+' building blocks'
 function showTab(name){
   if(!VIEWS[name])name='platforms';
   for(const k in VIEWS) VIEWS[k].hidden=(k!==name);
-  TABS.forEach(b=>{const on=b.dataset.tab===name;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');});
+  TABS.forEach(b=>{const on=b.dataset.tab===name;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');if(on){try{b.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}});
   if(name==='tools')applyTools();
   else if(name==='providers')applyProviders();
   else if(name==='blocks')applyBlocks();
