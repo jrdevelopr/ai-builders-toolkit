@@ -165,9 +165,8 @@
   .prow.open .chev,.card.open .cchev{transform:rotate(90deg);color:var(--accentB)}
   /* expanded detail — (1) "Users say" on the left + per-column notes aligned under each column */
   .drow-notes>td{background:var(--panel2);vertical-align:top;border-bottom:none;padding:2px 6px 4px}
-  .userssay{vertical-align:top;text-align:left;padding:3px 16px 6px 8px}
-  .ussay h5{margin:0 0 3px;font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--accentB);font-weight:800}
-  .ussay p{margin:0;font-size:11.5px;color:var(--txt);line-height:1.46}
+  .userssay{vertical-align:top;text-align:left;padding:3px 18px 6px 12px}
+  .ussay p{margin:0;font-size:12px;color:var(--txt);line-height:1.5}
   .dncell{text-align:center}
   .dntext{font-size:10.3px;line-height:1.32;color:var(--mut)}
   .dndash{color:var(--mut2);opacity:.4}
@@ -439,8 +438,7 @@ function detailRows(p){
     :p.agentsBeyond==='partial'?'<span class="mark mk-p" style="width:16px;height:16px;display:inline-flex">~</span> ':'';
   // (1) per-column notes — each sits directly under its capability column
   const notes=`<tr class="drow drow-notes" hidden>
-    <td class="c-exp"></td><td class="c-rank"></td>
-    <td class="userssay" colspan="2"><div class="ussay"><h5>Summary</h5><p>${p.summary}</p></div></td>
+    <td class="userssay" colspan="4"><div class="ussay"><p>${p.summary}</p></div></td>
     <td class="dncell mdldetail">${modelsDetail(p)}</td>
     ${noteTd(p.selfHosted)}<td></td>${noteTd(p.ghIssues)}${noteTd(p.ghProjects)}${noteTd(p.prs)}${noteTd(p.shell)}${noteTd(p.mobile)}${noteTd(p.desktop)}
   </tr>`;
