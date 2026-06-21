@@ -10,16 +10,20 @@ let html=fs.readFileSync(FILE,'utf8');
 const arr=JSON.parse(html.match(/const PLATFORMS=(\[[\s\S]*?\n\]);/)[1]);
 
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const IMG=new Set(['image/png','image/x-icon','image/vnd.microsoft.icon','image/jpeg','image/gif','image/webp','image/svg+xml']);
-function tryFetch(url,out){
+// map true content-type -> file extension. Naming the saved file by DETECTED mime
+// (not by guessing from the URL) avoids serving e.g. an SVG as .ico, which browsers
+// refuse to render (this was the Multica broken-icon bug).
+const MIME_EXT={'image/png':'png','image/x-icon':'ico','image/vnd.microsoft.icon':'ico','image/jpeg':'jpg','image/gif':'gif','image/webp':'webp','image/svg+xml':'svg'};
+// Download to a temp file; on a valid image return its TRUE extension, else null.
+function tryFetch(url,tmp){
   try{
-    execSync(`curl -fsSL --max-time 18 -A "Mozilla/5.0" -o "${out}" "${url}"`,{stdio:'ignore'});
-    const sz=fs.statSync(out).size;
-    const mime=execSync(`file -b --mime-type "${out}"`,{encoding:'utf8'}).trim();
-    if(sz>500 && IMG.has(mime)) return true;   // >500b rejects tiny blank favicons
+    execSync(`curl -fsSL --max-time 18 -A "Mozilla/5.0" -o "${tmp}" "${url}"`,{stdio:'ignore'});
+    const sz=fs.statSync(tmp).size;
+    const mime=execSync(`file -b --mime-type "${tmp}"`,{encoding:'utf8'}).trim();
+    if(sz>500 && MIME_EXT[mime]) return MIME_EXT[mime];   // >500b rejects tiny blank favicons
   }catch(e){}
-  try{fs.unlinkSync(out);}catch(e){}
-  return false;
+  try{fs.unlinkSync(tmp);}catch(e){}
+  return null;
 }
 function candidates(p){
   try{
@@ -46,10 +50,14 @@ for(const p of arr){
   const s=slug(p.name);
   if(p.icon && fs.existsSync(path.join(ROOT,'site',p.icon))){ console.log(`  ${p.name.padEnd(14)} -> keep ${p.icon}`); continue; } // don't clobber good/manual icons
   let saved=null;
+  const tmp=path.join(ICONS,`.${s}.tmp`);
   for(const url of candidates(p)){
-    const ext = url.includes('.png')||url.includes('github.com')?'png':'ico';
-    const out=path.join(ICONS,`${s}.${ext}`);
-    if(tryFetch(url,out)){ saved=`icons/${s}.${ext}`; fetched++; break; }
+    const ext=tryFetch(url,tmp);                 // null, or the TRUE extension by mime
+    if(ext){
+      const out=path.join(ICONS,`${s}.${ext}`);
+      fs.renameSync(tmp,out);
+      saved=`icons/${s}.${ext}`; fetched++; break;
+    }
   }
   if(!saved){
     fs.writeFileSync(path.join(ICONS,`${s}.svg`), svgTile(p.name));
