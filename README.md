@@ -1,5 +1,5 @@
 <!-- This file is AUTO-GENERATED from site/index.html by bin/gen-readme.js. Do not edit by hand. -->
-# Awesome Agent Platforms [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+# AI Builders Toolkit [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
 [![Live site](https://img.shields.io/badge/live-agents.jrdevelopr.site-2563eb?logo=googlechrome&logoColor=white)](https://agents.jrdevelopr.site) [![Platforms](https://img.shields.io/badge/platforms-57-0e9f6e)](https://agents.jrdevelopr.site) [![Auto-updated weekly](https://img.shields.io/badge/auto--updated-weekly-7c3aed)](bin/discover.sh) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 

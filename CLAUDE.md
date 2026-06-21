@@ -1,4 +1,4 @@
-# agents — Awesome Agent Platforms comparison site (tracked)
+# agents — AI Builders Toolkit comparison site (tracked)
 
 Public one-page comparison of self-hosted (and notable paid) AI agent platforms.
 

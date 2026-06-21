@@ -21,32 +21,32 @@
     <rect width="64" height="64" rx="16" fill="url(#mark)"/>
     <path d="M20 22l13 13-13 13M37 48h15" fill="none" stroke="#04140d" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <text x="162" y="120" fill="#e7ebf3" font-size="30" font-weight="700">Awesome Agent Platforms</text>
+  <text x="162" y="120" fill="#e7ebf3" font-size="30" font-weight="700">AI Builders Toolkit</text>
   <text x="162" y="152" fill="#94a0b6" font-size="20" font-weight="600">agents.jrdevelopr.site</text>
 
   <!-- headline -->
-  <text x="80" y="290" fill="#ffffff" font-size="76" font-weight="800" letter-spacing="-1">The self-hosted AI</text>
-  <text x="80" y="372" font-size="76" font-weight="800" letter-spacing="-1" fill="url(#grad)">agent-platform index</text>
+  <text x="80" y="290" fill="#ffffff" font-size="76" font-weight="800" letter-spacing="-1">The complete AI</text>
+  <text x="80" y="372" font-size="76" font-weight="800" letter-spacing="-1" fill="url(#grad)">builder&#8217;s toolkit</text>
 
-  <text x="80" y="430" fill="#aab4c6" font-size="29" font-weight="500">Ranked &#183; self-hosted-first &#183; auto-updated weekly &#8212; pick the right tool to run AI coding agents.</text>
+  <text x="80" y="430" fill="#aab4c6" font-size="29" font-weight="500">Platforms &#183; providers &#183; tools &#183; building blocks &#8212; self-hosted-first, ranked by GitHub stars.</text>
 
-  <!-- feature pills -->
+  <!-- feature pills (the four tabs) -->
   <g font-size="24" font-weight="700">
     <g transform="translate(80,486)">
-      <rect width="252" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
-      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">GitHub issues + PRs</text>
+      <rect width="200" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
+      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">Platforms</text>
     </g>
-    <g transform="translate(348,486)">
-      <rect width="232" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
-      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">One-click shell</text>
+    <g transform="translate(296,486)">
+      <rect width="200" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
+      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">Providers</text>
     </g>
-    <g transform="translate(596,486)">
-      <rect width="226" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
-      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">Self-hosted</text>
+    <g transform="translate(512,486)">
+      <rect width="173" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
+      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">Toolbox</text>
     </g>
-    <g transform="translate(838,486)">
-      <rect width="262" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
-      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">27+ platforms, free</text>
+    <g transform="translate(701,486)">
+      <rect width="280" height="56" rx="28" fill="#10141f" stroke="#26304a"/>
+      <text x="26" y="36" fill="#34d399">&#10003;</text><text x="56" y="36" fill="#dbe2ee">Building blocks</text>
     </g>
   </g>
 </svg>

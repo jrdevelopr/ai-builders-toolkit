@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Weekly auto-discovery: find NEW AI agent platforms and add them to the Awesome Agent Platforms
+# Weekly auto-discovery: find NEW AI agent platforms and add them to the AI Builders Toolkit
 # comparison site (~/apps/agents/site/index.html), verify, commit & push (list is alphabetical).
 # Runs a headless Claude Code agent. Invoked by cron (see `crontab -l`).
 set -uo pipefail
