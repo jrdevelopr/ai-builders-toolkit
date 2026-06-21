@@ -19,9 +19,15 @@ GitHub feedback) and should be refreshed periodically. After editing: `docker co
 restart web` (volume is read-only mounted live, so a restart isn't even required — just reload).
 
 ## Columns
-Cost (paid clearly marked + price) · GitHub Issues sync · GitHub Projects · PRs/push ·
+Cost (paid clearly marked + price) · **Sub login** · GitHub Issues sync · GitHub Projects · PRs/push ·
 one-click human shell · agents/models (concise) · multiple logins (per-client subscription
 isolation) · deploy/fleet · bottom line.
+
+**`sub` field** (`{s:'yes'|'partial'|'no', note}`): can you sign in with a **Claude Pro/Max & ChatGPT/Codex
+subscription** (typically via the official Claude Code / Codex CLIs' OAuth) instead of paying per-token API
+keys? `yes` = both via the CLIs; `partial` = one side only (Claude-only / Codex-only) or with caveats;
+`no` = API key / BYOK only, or its own proprietary subscription. Grounded in each row's documented agent CLIs.
+Rendered right after Cost (mark in collapsed row, note in the expanded detail, cap on mobile cards).
 
 ## Tabs — Platforms | Agent Tools
 The page is a **tabbed UI** (`.tabs` bar; `#view-platforms` / `#view-tools` sections; deep-link

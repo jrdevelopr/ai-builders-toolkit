@@ -41,13 +41,16 @@ The goal: **one tool that does everything** — open an interactive shell, pull 
 agent CLI, and ship a PR, without tab-hopping to a separate terminal.
 
 **Listed alphabetically** (A→Z) — no personal ranking. **Compared on:** **self-hosted** (runs on *your*
-machines) · one-click **human shell** · **GitHub** issue sync + PRs/push · **many agents/models** (beyond
+machines) · **subscription login** (sign in with your Claude Pro/Max & ChatGPT/Codex subscription instead of
+metered API keys) · one-click **human shell** · **GitHub** issue sync + PRs/push · **many agents/models** (beyond
 Claude & Codex) · **multiple logins** (separate client subscriptions) · **mobile** access · GitHub stars &
 user sentiment. Free & self-hosted preferred; paid options are included and clearly marked.
 
 **Legend:** ✅ native / strong · 🟡 partial / context-only · ➖ not documented &nbsp;|&nbsp;
-*Self-hosted* ✅ = runs entirely on your own machines (not the vendor's cloud). *Multiple logins* =
-isolate separate Claude/agent subscriptions per project. *Mobile* ✅ = app or mobile-first.
+*Self-hosted* ✅ = runs entirely on your own machines (not the vendor's cloud). *Sub login* ✅ = sign in with
+your Claude Pro/Max & ChatGPT/Codex subscription (usually via the official Claude Code / Codex CLIs) instead of
+per-token API keys; 🟡 = one side only or with caveats; ➖ = API key / BYOK only. *Multiple logins* = isolate
+separate Claude/agent subscriptions per project. *Mobile* ✅ = app or mobile-first.
 
 `;
 
@@ -56,11 +59,11 @@ const stars = n => n==null ? '—'
   : n>=1e6 ? (n/1e6).toFixed(1).replace(/\.0$/,'')+'M'
   : n>=1e4 ? Math.round(n/1e3)+'k'
   : n>=1e3 ? (n/1e3).toFixed(1).replace(/\.0$/,'')+'k' : ''+n;
-const cols = ['#','Platform','★ Stars','Cost','Self-hosted','GitHub Issues','Projects','PRs / push','One-click shell',
+const cols = ['#','Platform','★ Stars','Cost','Sub login','Self-hosted','GitHub Issues','Projects','PRs / push','One-click shell',
   'Multiple logins','Mobile','Agents / models','Bottom line (what users say)'];
 let rows = `| ${cols.join(' | ')} |\n|${cols.map(()=>'---').join('|')}|\n`;
 P.forEach((p, i) => {
-  rows += `| ${i+1} | **[${esc(p.name)}](${p.url})** | ${stars(p.stars)} | ${cost(p.cost)} | ${m(p.selfHosted)} | ${m(p.ghIssues)} | ${m(p.ghProjects)} | ${m(p.prs)} | ${m(p.shell)} | ${m(p.multi)} | ${m(p.mobile)}<br><sub>${esc(p.mobile.note)}</sub> | ${esc(p.agents)} | ${esc(p.verdict)} |\n`;
+  rows += `| ${i+1} | **[${esc(p.name)}](${p.url})** | ${stars(p.stars)} | ${cost(p.cost)} | ${m(p.sub)}<br><sub>${esc(p.sub.note)}</sub> | ${m(p.selfHosted)} | ${m(p.ghIssues)} | ${m(p.ghProjects)} | ${m(p.prs)} | ${m(p.shell)} | ${m(p.multi)} | ${m(p.mobile)}<br><sub>${esc(p.mobile.note)}</sub> | ${esc(p.agents)} | ${esc(p.verdict)} |\n`;
 });
 
 const footer = `
