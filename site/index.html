@@ -174,6 +174,7 @@
   /* (2) neutral overall summary — untitled, faint divider above */
   .drow-sum>td{background:var(--panel2);padding:0 0 16px;border-bottom:1px solid var(--line)}
   .dsum{margin:4px 20px 0;padding-top:13px;border-top:1px dashed var(--line)}
+  .dsumh{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--accentB);font-weight:800;text-align:center;margin-bottom:3px}
   .dsumtext{margin:0;font-size:12.5px;color:var(--txt);line-height:1.55;text-align:center;max-width:1000px;margin-left:auto;margin-right:auto}
   .cnt{color:var(--accentB);font-size:11px;font-weight:700}
 
@@ -439,13 +440,13 @@ function detailRows(p){
   // (1) per-column notes — each sits directly under its capability column
   const notes=`<tr class="drow drow-notes" hidden>
     <td class="c-exp"></td><td class="c-rank"></td>
-    <td class="userssay" colspan="2"><div class="ussay"><h5>Users say</h5><p>${p.verdict}</p></div></td>
+    <td class="userssay" colspan="2"><div class="ussay"><h5>Summary</h5><p>${p.summary}</p></div></td>
     <td class="dncell mdldetail">${modelsDetail(p)}</td>
     ${noteTd(p.selfHosted)}<td></td>${noteTd(p.ghIssues)}${noteTd(p.ghProjects)}${noteTd(p.prs)}${noteTd(p.shell)}${noteTd(p.mobile)}${noteTd(p.desktop)}
   </tr>`;
   // (2) neutral overall summary (no title, faint divider above) — kept user-free
   const summary=`<tr class="drow drow-sum" hidden><td colspan="13"><div class="dsum">
-    <p class="dsumtext">${p.summary}</p>
+    <div class="dsumh">Users say</div><p class="dsumtext">${p.verdict}</p>
   </div></td></tr>`;
   return notes+summary;
 }
