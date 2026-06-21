@@ -8,14 +8,16 @@ const ROOT = path.join(__dirname, '..');
 // --- extract the PLATFORMS array by running the page's data script in a DOM stub ---
 const html = fs.readFileSync(path.join(ROOT, 'site/index.html'), 'utf8');
 const scriptBody = html.split('<script>').pop().split('</script>')[0]; // the big data+render script
-const el = () => ({ set innerHTML(v){}, set textContent(v){}, classList:{add(){},remove(){}}, addEventListener(){} });
+const el = () => ({ set innerHTML(v){}, get innerHTML(){return '';}, set textContent(v){}, set hidden(v){},
+  classList:{add(){},remove(){},toggle(){},contains(){return false;}}, addEventListener(){},
+  querySelector(){return el();}, querySelectorAll(){return [];}, setAttribute(){}, getAttribute(){return null;},
+  removeAttribute(){}, closest(){return null;}, dataset:{} });
 const documentStub = {
-  documentElement: { getAttribute: () => null, setAttribute(){}, removeAttribute(){} },
-  getElementById: el, querySelectorAll: () => []
+  documentElement: el(), getElementById: el, querySelector: el, querySelectorAll: () => [], addEventListener(){}
 };
 const fn = new Function('document','window','navigator','location','localStorage',
   scriptBody + '\nreturn PLATFORMS;');
-const P = fn(documentStub, {}, {}, { href:'' }, { getItem:()=>null, setItem(){} });
+const P = fn(documentStub, { addEventListener(){} }, {}, { href:'', search:'', pathname:'/' }, { getItem:()=>null, setItem(){} });
 // Neutral order for everyone: alphabetical by name (A→Z), matching the site.
 P.sort((a,b)=>a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
