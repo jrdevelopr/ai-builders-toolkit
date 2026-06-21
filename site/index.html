@@ -142,6 +142,13 @@
   thead th{position:sticky;top:60px;z-index:3;background:var(--thead);color:var(--thtxt);font-size:11px;
     letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:10px 7px;font-weight:700;
     border-bottom:2px solid var(--thline);white-space:nowrap;box-shadow:0 5px 7px -5px rgba(0,0,0,.20)}
+  .starsort{cursor:pointer;border:1px solid transparent;background:none;font-family:inherit;
+    text-transform:none;letter-spacing:0;color:var(--mut);font-size:11px;font-weight:700;
+    padding:2px 7px;border-radius:7px;transition:.14s;white-space:nowrap}
+  .starsort:hover{color:var(--txt);border-color:var(--line);background:var(--panel)}
+  .starsort.on{color:var(--accentB);border-color:var(--accentB);background:rgba(91,157,255,.12)}
+  .starsort .st2{color:#f5b301}
+  .starsort .sarrow{font-size:10px;margin-left:1px}
   th .hh{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--thtxt)}
   th .hh svg{opacity:.9}
   th .hh span{font-size:9px;letter-spacing:.03em;line-height:1}
@@ -309,7 +316,7 @@
           <tr>
             <th class="c-exp" aria-hidden="true"></th>
             <th class="c-rank">#</th>
-            <th class="c-name l" title="Platform name + current GitHub stars (popularity)">Platform <span style="opacity:.65;font-weight:600;text-transform:none;letter-spacing:0">· ★ stars</span></th>
+            <th class="c-name l" title="Platform name + current GitHub stars (popularity)">Platform <button id="starSort" class="starsort" type="button" title="Sort by GitHub stars — click to toggle ▼ most → ▲ fewest → A–Z">· <span class="st2">★</span> stars <span class="sarrow">⇅</span></button></th>
             <th title="Cost / license"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L3 12V3h9l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><span>Cost</span></span></th>
             <th class="l" title="Agents / models supported"><span class="hhl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="8" width="15" height="11" rx="2.5"/><path d="M12 8V5.5"/><circle cx="12" cy="4" r="1.6"/><path d="M9.5 13h.01M14.5 13h.01M9.5 16h5"/><path d="M2.5 12v3M21.5 12v3"/></svg>Agents / models</span></th>
             <th title="Self-hosted — runs entirely on your own machines, not their servers"><span class="hh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span>Self-host</span></span></th>
@@ -372,6 +379,15 @@ const PLATFORMS=[
 ];
 // Neutral order for everyone: alphabetical by name (A→Z), not owner preference.
 PLATFORMS.sort((a,b)=>a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+// Default order is alphabetical; the Platform header's "★ stars" toggle re-sorts by GitHub stars.
+let sortMode='alpha';   // 'alpha' | 'stars-desc' | 'stars-asc'  (nulls = no repo sort last)
+function sortedAll(){
+  const a=PLATFORMS.slice();
+  if(sortMode==='stars-desc') a.sort((x,y)=>(y.stars==null?-1:y.stars)-(x.stars==null?-1:x.stars));
+  else if(sortMode==='stars-asc') a.sort((x,y)=>(x.stars==null?Infinity:x.stars)-(y.stars==null?Infinity:y.stars));
+  else a.sort((x,y)=>x.name.toLowerCase().localeCompare(y.name.toLowerCase()));
+  return a;
+}
 
 const MK={yes:['mk-y','✓'],partial:['mk-p','~'],no:['mk-n','–']};
 function mark(cell){
@@ -450,7 +466,7 @@ function render(list){
     const i=PLATFORMS.indexOf(p);
     return `<tr class="prow${idx%2?' alt':''}" data-i="${i}" tabindex="0" role="button" aria-expanded="false">
       <td class="c-exp"><span class="chev">${CHEV}</span></td>
-      <td class="c-rank"><span class="rank">${i+1}</span></td>
+      <td class="c-rank"><span class="rank">${p._rank||i+1}</span></td>
       <td class="c-name"><div class="pname">${p.name} ${starsEl(p)}</div>
         <a class="plink" href="${p.url}" target="_blank" rel="noopener">${p.link} ${EXT}</a></td>
       <td>${costCell(p.cost)}</td>
@@ -531,7 +547,9 @@ const active=new Set();   // multi-select; combined with OR (match ANY)
 let curQ='';
 function matchActive(p){ for(const f of active){ const fn=FILTERS[f]; if(fn&&fn(p))return true; } return false; }
 function apply(){
-  const list=PLATFORMS.filter(p=>{
+  const all=sortedAll();
+  all.forEach((p,k)=>p._rank=k+1);          // # reflects current sort rank
+  const list=all.filter(p=>{
     if(active.size && !matchActive(p))return false;
     if(curQ && !(p.name+' '+p.agents+' '+p.verdict+' '+(p.mobile.note||'')+' '+p.deploy).toLowerCase().includes(curQ))return false;
     return true;
@@ -549,6 +567,19 @@ function toggleFilter(f){ if(!f)return; active.has(f)?active.delete(f):active.ad
 function clearFilters(){ active.clear(); syncUrl(); apply(); }
 document.getElementById('q').addEventListener('input',e=>{curQ=e.target.value.trim().toLowerCase();apply();});
 document.getElementById('resetF').addEventListener('click',clearFilters);
+// "★ stars" sort toggle in the Platform header: A–Z → most stars → fewest → A–Z
+(function(){
+  const btn=document.getElementById('starSort'), ar=btn.querySelector('.sarrow');
+  btn.addEventListener('click',()=>{
+    sortMode = sortMode==='alpha'?'stars-desc' : sortMode==='stars-desc'?'stars-asc' : 'alpha';
+    btn.classList.toggle('on', sortMode!=='alpha');
+    ar.textContent = sortMode==='stars-desc'?'▼' : sortMode==='stars-asc'?'▲' : '⇅';
+    btn.title = sortMode==='stars-desc'?'Sorted by stars (most first) — click for fewest'
+      : sortMode==='stars-asc'?'Sorted by stars (fewest first) — click for A–Z'
+      : 'Sort by GitHub stars — click to toggle ▼ most → ▲ fewest → A–Z';
+    apply();
+  });
+})();
 
 // oblong clickable filter tiles (live counts + icons) — stack as many as you like (OR)
 const ICN={
