@@ -381,7 +381,7 @@ function mark(cell){
   return `<div class="cell"><span class="mark ${cls}">${sym}</span>${note}</div>`;
 }
 function costCell(c){
-  return `<div class="cost"><span class="ct ${c.t}">${c.label}</span><span class="cprice">${c.price}</span></div>`;
+  return `<div class="cost"><span class="ct ${c.t}">${c.label}</span></div>`;
 }
 function fmtStars(n){
   if(n>=1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'')+'M';
