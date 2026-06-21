@@ -447,15 +447,15 @@
       <p class="sub">The labs that build the models, the clouds that host them, and the runtimes that run them locally. From frontier API providers (OpenAI, Anthropic, Google) to fully open-weight labs (Meta, Mistral, DeepSeek) to local runtimes you control (Ollama, vLLM, llama.cpp). Filter by type, open-weights status, or cost.</p>
     </header>
 
+    <div class="stats" id="pstats"></div>
+
     <div class="bar">
-      <div style="color:var(--mut);font-size:13px">↑ Filter by type · click a <b style="color:var(--txt);font-weight:600">row</b> to expand full detail &amp; user sentiment</div>
+      <div style="color:var(--mut);font-size:13px">↑ Each tile is a <b style="color:var(--txt);font-weight:600">provider type</b> — click any to filter (stack several to match&nbsp;any) · click a <b style="color:var(--txt);font-weight:600">row</b> to expand full detail &amp; user sentiment</div>
       <div style="display:flex;gap:10px;align-items:center;flex:1;justify-content:flex-end;flex-wrap:wrap">
         <button id="presetF" class="resetf" hidden>✕ Clear filters</button>
         <div class="search"><input id="pq" type="search" placeholder="Search providers…" /></div>
       </div>
     </div>
-
-    <div class="stats" id="pstats"></div>
 
     <div class="tablecard">
       <div class="scroll">
@@ -489,15 +489,15 @@
       <p class="sub">Open-source <b>tools that plug into</b> the agents you already run — memory, computer-use, web access, skills, model routing, security scanning &amp; monitoring. Drop-in add-ons (MCP servers, CLIs, skill packs, gateways) that make Claude Code, Cursor, Codex &amp; friends do more. Seeded from the community's “best free agent tools” lists.</p>
     </header>
 
+    <div class="stats" id="tstats"></div>
+
     <div class="bar">
-      <div style="color:var(--mut);font-size:13px">↑ Filter by category · click a <b style="color:var(--txt);font-weight:600">row</b> to expand its full detail, install command &amp; what users say</div>
+      <div style="color:var(--mut);font-size:13px">↑ Each tile is a <b style="color:var(--txt);font-weight:600">tool category</b> — click any to filter (stack several to match&nbsp;any) · click a <b style="color:var(--txt);font-weight:600">row</b> to expand its full detail, install command &amp; what users say</div>
       <div style="display:flex;gap:10px;align-items:center;flex:1;justify-content:flex-end;flex-wrap:wrap">
         <button id="tresetF" class="resetf" hidden>✕ Clear filters</button>
         <div class="search"><input id="tq" type="search" placeholder="Search tools…" /></div>
       </div>
     </div>
-
-    <div class="stats" id="tstats"></div>
 
     <div class="tablecard">
       <div class="scroll">
