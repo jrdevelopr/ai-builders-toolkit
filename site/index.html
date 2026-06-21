@@ -228,13 +228,9 @@
   .mdlcell{text-align:left;font-size:12px;color:var(--txt);line-height:1.42}
   .mdl-head{font-weight:600}
   .mdl-x{color:var(--mut2);font-weight:600}
-  .mdl-rest{display:none;color:var(--mut)}
-  .mdlcell.open .mdl-rest{display:inline}
-  .mdl-more{cursor:pointer;border:none;background:none;color:var(--accentB);font-size:11px;
-    font-weight:700;padding:0 0 0 5px;white-space:nowrap}
-  .mdl-more:hover{text-decoration:underline}
-  .mdl-all{display:none;margin-left:7px;font-size:11px;font-weight:600;white-space:nowrap}
-  .mdlcell.open .mdl-all{display:inline}
+  .mdl-hint{color:var(--accentB);font-size:11px;font-weight:700;white-space:nowrap}
+  .mdldetail{text-align:left}
+  .mdl-link{font-size:11px;font-weight:600;white-space:nowrap;margin-left:2px}
   /* deploy column (free text) */
   .depcell{text-align:left;font-size:11.5px;color:var(--mut);line-height:1.4}
 
@@ -400,8 +396,9 @@ function starsEl(p){
   return `<span class="stars" title="${p.stars.toLocaleString()} GitHub stars"><span class="st">★</span>${fmtStars(p.stars)}</span>`;
 }
 function markSym(cell){const [cls,sym]=MK[(cell||{s:'no'}).s]||MK.no;return `<span class="mark ${cls}">${sym}</span>`;}
-// Models column: show the first couple, toggle to reveal the rest (capped), link out for the full list.
-const HEAD=2, CAP=9;
+// Models column: collapsed shows the first couple + a "+N more" hint; expanding the ROW
+// (accordion) lists the models (capped), with a "full list" link only if there are a ton more.
+const HEAD=2, CAP=10;
 function parseModels(agents){
   let more='', s=String(agents||'');
   const m=s.match(/\s*[+]\s*(.+)$/);                 // trailing "+ many more" / "+ custom (MCP)"
@@ -409,23 +406,28 @@ function parseModels(agents){
   const list=s.split(',').map(x=>x.trim()).filter(Boolean);
   return {list, more};
 }
-function modelsCell(p){
+function modelsCell(p){          // collapsed cell
   const {list,more}=parseModels(p.agents);
-  // descriptive (no real comma list) — just show the phrase
-  if(list.length<=1){
+  if(list.length<=1){            // descriptive phrase — show as-is
     const tail=more?` <span class="mdl-x">+ ${more}</span>`:'';
     return `<td class="mdlcell"><span class="mdl-head">${list[0]||p.agents}${tail}</span></td>`;
   }
   const head=list.slice(0,HEAD).join(', ');
-  const restList=list.slice(HEAD,CAP);
-  const rest=restList.length?', '+restList.join(', '):'';
-  const truncated=list.length>CAP || !!more;          // there are more than we show
-  const moreLbl=`+ ${list.length-HEAD>0?(list.length>CAP?(list.length-HEAD)+'+':(list.length-HEAD)):''} more`.replace(/\s+/g,' ');
-  return `<td class="mdlcell">
-    <span class="mdl-head">${head}</span><span class="mdl-rest">${rest}</span>
-    <button class="mdl-more" type="button" data-more="${moreLbl}">${moreLbl}</button>
-    ${truncated?`<a class="mdl-all" href="${p.url}" target="_blank" rel="noopener">full list ↗</a>`:''}
-  </td>`;
+  const extra=list.length-HEAD;                       // named models not shown collapsed
+  const hint=(extra>0||more)?` <span class="mdl-hint">+ ${extra>0?extra:''} more</span>`.replace(/\s+/g,' '):'';
+  return `<td class="mdlcell"><span class="mdl-head">${head}</span>${hint}</td>`;
+}
+function modelsDetail(p){        // shown in the expanded (accordion) per-column detail
+  const {list,more}=parseModels(p.agents);
+  const link=`<a class="mdl-link" href="${p.url}" target="_blank" rel="noopener">full list ↗</a>`;
+  if(list.length>1){
+    const ton=list.length>CAP;                        // genuinely a lot more than we list
+    const shown=list.slice(0,CAP).join(', ');
+    return `<span class="dntext">${shown}${ton?' … ':(more?` + ${more} `:'')}${ton?link:''}</span>`;
+  }
+  // descriptive ("75+ providers", "dozens", "hundreds") — surface the link to the source
+  if(/\d\+|\bdozens\b|\bhundreds\b|\bany\b|many/i.test(p.agents)) return `<span class="dntext">${link}</span>`;
+  return '<span class="dndash">·</span>';
 }
 const CHEV='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
 const EXT='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>';
@@ -440,7 +442,7 @@ function detailRows(p){
   const notes=`<tr class="drow drow-notes" hidden>
     <td class="c-exp"></td><td class="c-rank"></td>
     <td class="c-name"><span class="dhint">Per-column detail</span></td>
-    <td class="dncell">${p.agentsCnt?`<span class="dntext">${ab}${p.agentsCnt}</span>`:'<span class="dndash">·</span>'}</td>
+    <td class="dncell mdldetail">${modelsDetail(p)}</td>
     <td></td>
     ${noteTd(p.selfHosted)}<td></td>${noteTd(p.ghIssues)}${noteTd(p.ghProjects)}${noteTd(p.prs)}${noteTd(p.shell)}${noteTd(p.mobile)}${noteTd(p.desktop)}
   </tr>`;
@@ -508,9 +510,7 @@ function toggleRow(tr){
   if(willOpen){tr.classList.add('open');tr.setAttribute('aria-expanded','true');setDetail(tr,true);}
 }
 rowsEl.addEventListener('click',e=>{
-  if(e.target.closest('a'))return;
-  const mb=e.target.closest('.mdl-more');               // models "+ more" toggle — don't expand the row
-  if(mb){ const cell=mb.closest('.mdlcell'); const open=cell.classList.toggle('open'); mb.textContent=open?'less':mb.dataset.more; return; }
+  if(e.target.closest('a'))return;                      // let the "full list" link through
   const tr=e.target.closest('.prow'); if(tr)toggleRow(tr); });
 rowsEl.addEventListener('keydown',e=>{ if(e.key!=='Enter'&&e.key!==' ')return; const tr=e.target.closest('.prow');
   if(tr){e.preventDefault();toggleRow(tr);} });
