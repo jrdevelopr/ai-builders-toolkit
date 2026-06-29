@@ -33,12 +33,12 @@ keys? `yes` = both via the CLIs; `partial` = one side only (Claude-only / Codex-
 `no` = API key / BYOK only, or its own proprietary subscription. Grounded in each row's documented agent CLIs.
 Rendered right after Cost (mark in collapsed row, note in the expanded detail, cap on mobile cards).
 
-## Tabs — Platforms | Providers | Agent Tools | AI building blocks
+## Tabs — Platforms | Providers | Agent Tools | Desktop AI Tools | AI building blocks
 The page is a **tabbed UI** (`.tabs` bar; `#view-platforms` / `#view-providers` / `#view-tools` /
-`#view-blocks` sections; deep-links `#providers` `#tools` `#blocks`). Wiring lives in the
+`#view-desktop` / `#view-blocks` sections; deep-links `#providers` `#tools` `#desktop` `#blocks`). Wiring lives in the
 `VIEWS`/`showTab()` block at the end of `<script>` — to add a tab, register it in `VIEWS`, add a
 `apply<X>()` branch in `showTab`, set its `tabn-<x>`/`<x>countEy` counts, and add it to the
-init-hash whitelist `['tools','providers','blocks']`. More tabs can be added by cloning the pattern.
+init-hash whitelist `['tools','desktop','providers','blocks']`. More tabs can be added by cloning the pattern.
 - **Tab 1 = Platforms** — the `PLATFORMS` array (unchanged; full capability matrix).
 - **Tab 2 = Agent Tools** — the **`TOOLS` array** in `site/index.html`: drop-in add-ons that plug
   INTO agents (memory, computer-use, web access, skills, model routing, security, monitoring).
@@ -51,6 +51,14 @@ init-hash whitelist `['tools','providers','blocks']`. More tabs can be added by 
   - Sorted **A→Z** at render (star-sort toggle in the Tool header, like Platforms).
   - Tools render reuses the platform helpers (`starsEl`, `costCell`, `markSym`, `CHEV`, `noteTd`).
   - Hermes Agent stays on the **Platforms** tab (it's a full agent, not an add-on) — not duplicated.
+- **Tab 3 = Desktop AI Tools** — the **`DESKTOPTOOLS` array** in `site/index.html`: installable
+  desktop productivity apps, currently focused on Mac/Windows tools such as dictation and writing
+  helpers. Each DESKTOPTOOLS object:
+  `name,url,link,cat,cost{t,label,price},type,mac{s,note},windows{s,note},stars,icon,summary,verdict`.
+  - `cat` uses the `DTCAT` map (currently `voice|writing|meetings|launcher`) and renders with the
+    shared `.catbadge` chip style.
+  - The tab emphasizes **OS support columns** (`mac`, `windows`) instead of agent-integration fields.
+  - Sorted **A→Z** at render (star-sort toggle in the header, like the other tabs).
 - **Tab 4 = AI building blocks** — the **`BLOCKS` array** in `site/index.html`: embeddable AI
   capabilities you wire **into** your own apps/sites/agents (voice TTS/STT, image, video, music,
   embeddings/search, documents/OCR, media-inference clouds) — distinct from the LLM *providers*
