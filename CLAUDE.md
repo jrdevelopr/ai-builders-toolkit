@@ -2,11 +2,12 @@
 
 Public one-page comparison of self-hosted (and notable paid) AI agent platforms.
 
-- **Public URL:** https://aibuilders.jrdevelopr.site — **ungated / open** (shareable; NO lab-gate).
+- **Public URL:** https://jrdevelopr.com (apex + `www`) — **ungated / open** (shareable; NO lab-gate).
+  Moved here 2026-07-02 (domain split). Old `aibuilders.jrdevelopr.site` / `agents.jrdevelopr.site` 301→ here.
 - **Local:** http://192.168.20.108:8088
 - **Type:** docker, self-managed. `caddy:2-alpine` file-server serving `site/` on host port 8088.
 - **Bring up:** `cd ~/apps/agents && docker compose -p agents up -d`
-- **Caddy route:** `~/server-setup/caddy/apps.d/agents.caddy` — **no `import gate`** (deliberately open).
+- **Caddy route:** `~/server-setup/caddy/apps.d/jrdevelopr-com.caddy` — **no `import gate`** (deliberately open).
 
 > **Skill:** invoke the **`agents-site`** skill (`~/.claude/skills/agents-site/SKILL.md`) when
 > adding/editing any tab entry — it has the exact per-tab schema, enum maps, render harness and
