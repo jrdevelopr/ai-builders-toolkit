@@ -1,11 +1,11 @@
 <!-- This file is AUTO-GENERATED from site/index.html by bin/gen-readme.js. Do not edit by hand. -->
 # AI Builders Toolkit
 
-[![Live site](https://img.shields.io/badge/live-aibuilders.jrdevelopr.site-2563eb?logo=googlechrome&logoColor=white)](https://aibuilders.jrdevelopr.site) [![Platforms](https://img.shields.io/badge/platforms-61-0e9f6e)](https://aibuilders.jrdevelopr.site) [![Auto-updated weekly](https://img.shields.io/badge/auto--updated-weekly-7c3aed)](bin/discover.sh) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Live site](https://img.shields.io/badge/live-jrdevelopr.com-2563eb?logo=googlechrome&logoColor=white)](https://jrdevelopr.com) [![Platforms](https://img.shields.io/badge/platforms-61-0e9f6e)](https://jrdevelopr.com) [![Auto-updated weekly](https://img.shields.io/badge/auto--updated-weekly-7c3aed)](bin/discover.sh) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 > An **alphabetical, self-hosted-first** comparison of AI coding-agent platforms — find the best tool to **run and manage AI coding agents** from one place.
 
-### ▶︎ Live, interactive version → **https://aibuilders.jrdevelopr.site**
+### ▶︎ Live, interactive version → **https://jrdevelopr.com**
 
 The goal: **one tool that does everything** — open an interactive shell, pull a GitHub issue, run any
 agent CLI, and ship a PR, without tab-hopping to a separate terminal.
