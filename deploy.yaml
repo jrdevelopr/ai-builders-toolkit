@@ -1,6 +1,6 @@
 name: agents
 type: docker
-subdomain: aibuilders      # -> aibuilders.jrdevelopr.site
+domain: jrdevelopr.com     # public home = .com apex + www (moved 2026-07-02); route: caddy/apps.d/jrdevelopr-com.caddy. Old aibuilders/agents.jrdevelopr.site 301 here.
 port: 8088                 # host port (0.0.0.0) -> http://192.168.20.108:8088
 container_port: 80
 public: true
