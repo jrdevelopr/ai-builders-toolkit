@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Squircle background -->
+  <rect width="512" height="512" rx="0" fill="#553DE9"/>
+
+  <!-- Letter A - white elegant strokes -->
+  <path d="M152 405 L242 120" stroke="#FFFEFB" stroke-width="28" stroke-linecap="round"/>
+  <path d="M360 405 L270 120" stroke="#FFFEFB" stroke-width="28" stroke-linecap="round"/>
+  <path d="M242 120 Q256 86 270 120" stroke="#FFFEFB" stroke-width="28" stroke-linecap="round" fill="none"/>
+
+  <!-- Teal dot -->
+  <circle cx="256" cy="295" r="20" fill="#1FC5A8"/>
+</svg>
