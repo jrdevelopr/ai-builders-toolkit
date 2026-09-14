@@ -4,10 +4,18 @@ Public one-page comparison of self-hosted (and notable paid) AI agent platforms.
 
 - **Public URL:** https://jrdevelopr.com (apex + `www`) — **ungated / open** (shareable; NO lab-gate).
   Moved here 2026-07-02 (domain split). Old `aibuilders.jrdevelopr.site` / `agents.jrdevelopr.site` 301→ here.
-- **Local:** http://192.168.20.108:8088
-- **Type:** docker, self-managed. `caddy:2-alpine` file-server serving `site/` on host port 8088.
-- **Bring up:** `cd ~/apps/agents && docker compose -p agents up -d`
-- **Caddy route:** `~/server-setup/caddy/apps.d/jrdevelopr-com.caddy` — **no `import gate`** (deliberately open).
+- **Hosting: Cloudflare Worker, not this server** (moved 2026-09-14). `site/` is uploaded as
+  Worker static assets. No container, no Caddy route, no tunnel ingress. The old
+  `docker-compose.yml` and `Caddyfile` are kept only for rollback; the `jrdevelopr-com.caddy`
+  route and the `:8088` port are dead.
+- **Deploy:** `npx wrangler@4 deploy` from this folder, with `CLOUDFLARE_EMAIL`,
+  `CLOUDFLARE_API_KEY` and `CLOUDFLARE_ACCOUNT_ID` exported from
+  `/etc/ubuntulab/cloudflare-new.env`. Worker name `toolkit`.
+- **Editing is no longer live.** The volume mount is gone, so a change to `site/index.html`
+  needs a deploy before it shows. This is the one habit that changed with the move.
+- `site/_headers` carries the CSP and security headers the Caddyfile used to add.
+  `html_handling = "none"` keeps `/privacy.html` at that URL instead of redirecting it, and
+  `worker/index.js` only resolves directory paths like `/` to `index.html`.
 
 > **Skill:** invoke the **`agents-site`** skill (`~/.claude/skills/agents-site/SKILL.md`) when
 > adding/editing any tab entry — it has the exact per-tab schema, enum maps, render harness and

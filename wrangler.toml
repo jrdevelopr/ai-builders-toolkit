@@ -1,0 +1,23 @@
+# Cloudflare Worker serving the AI Builders Toolkit as static assets.
+# Real files are served straight from the asset layer, free and unmetered; the
+# Worker script is a fallback that only runs for directory-style paths.
+# Deploy: npx wrangler@4 deploy   (see CLAUDE.md for credentials)
+name = "toolkit"
+main = "worker/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+
+[assets]
+directory = "./site"
+binding = "ASSETS"
+# Serve exactly the path requested, so /privacy.html is not 307-redirected to
+# /privacy and every already-indexed URL keeps working.
+html_handling = "none"
+
+[[routes]]
+pattern = "jrdevelopr.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.jrdevelopr.com"
+custom_domain = true
