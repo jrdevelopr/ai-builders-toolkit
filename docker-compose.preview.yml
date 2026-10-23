@@ -1,0 +1,11 @@
+services:
+  web:
+    image: python:3.12-alpine
+    working_dir: /app
+    command: python -m http.server 8000 --bind 0.0.0.0 --directory site
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app:ro
+    x-shipit-preview: auto
+    x-shipit-depends-on-install: false
